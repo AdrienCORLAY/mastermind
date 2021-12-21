@@ -4,17 +4,33 @@
  */
 package mastermind;
 
+import java.awt.Dimension;
+import java.util.Scanner;
+
 /**
  *
  * @author adrie
  */
 public class Mastergraphique extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Mastergraphique
-     */
+    int valeurcouleur = 0;
+    int nombredecoups = 12;
+    int nombredecouleur = 8;
+    String[] Listepions = new String[96];
+    CouleurMaster couleurmaster = new CouleurMaster(0);
+    String[] tabbase = new String[4];
+    Scanner scanner = new Scanner(System.in);
+    GrilleMaster grillejeu;
+
     public Mastergraphique() {
+
         initComponents();
+        nbbonneplace.setVisible(false);
+        GrilleJeugraph.setVisible(false);
+        nbbonnecouleur.setVisible(false);
+        nbessais.setText(nombredecoups + "");
+        nbcoul.setText(nombredecouleur + "");
+
     }
 
     /**
@@ -27,63 +43,153 @@ public class Mastergraphique extends javax.swing.JFrame {
     private void initComponents() {
 
         GrilleJeugraph = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        nbbonneplace = new javax.swing.JPanel();
+        nbbonnecouleur = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        plusess = new javax.swing.JButton();
+        pluscoul = new javax.swing.JButton();
+        moinsess = new javax.swing.JButton();
+        moinscoul = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        nbessais = new javax.swing.JLabel();
+        nbcoul = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        GrilleJeugraph.setBackground(new java.awt.Color(0, 0, 255));
-        GrilleJeugraph.setMinimumSize(new java.awt.Dimension(900, 200));
-        GrilleJeugraph.setPreferredSize(new java.awt.Dimension(900, 300));
-
-        javax.swing.GroupLayout GrilleJeugraphLayout = new javax.swing.GroupLayout(GrilleJeugraph);
-        GrilleJeugraph.setLayout(GrilleJeugraphLayout);
-        GrilleJeugraphLayout.setHorizontalGroup(
-            GrilleJeugraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-        GrilleJeugraphLayout.setVerticalGroup(
-            GrilleJeugraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
+        GrilleJeugraph.setBackground(new java.awt.Color(0, 0, 0));
+        GrilleJeugraph.setMinimumSize(new java.awt.Dimension(600, 200));
+        GrilleJeugraph.setPreferredSize(new java.awt.Dimension(900, 200));
+        GrilleJeugraph.setLayout(new java.awt.GridLayout(4, 12));
         getContentPane().add(GrilleJeugraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 51));
+        nbbonneplace.setBackground(new java.awt.Color(255, 0, 51));
+        nbbonneplace.setPreferredSize(new java.awt.Dimension(600, 60));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout nbbonneplaceLayout = new javax.swing.GroupLayout(nbbonneplace);
+        nbbonneplace.setLayout(nbbonneplaceLayout);
+        nbbonneplaceLayout.setHorizontalGroup(
+            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 900, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        nbbonneplaceLayout.setVerticalGroup(
+            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 900, 60));
+        getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 900, 60));
 
-        jPanel2.setBackground(new java.awt.Color(0, 255, 0));
-        jPanel2.setPreferredSize(new java.awt.Dimension(900, 60));
+        nbbonnecouleur.setBackground(new java.awt.Color(0, 255, 0));
+        nbbonnecouleur.setPreferredSize(new java.awt.Dimension(900, 60));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout nbbonnecouleurLayout = new javax.swing.GroupLayout(nbbonnecouleur);
+        nbbonnecouleur.setLayout(nbbonnecouleurLayout);
+        nbbonnecouleurLayout.setHorizontalGroup(
+            nbbonnecouleurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 900, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        nbbonnecouleurLayout.setVerticalGroup(
+            nbbonnecouleurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, -1, -1));
+        getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
+
+        jButton3.setText("START");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
+
+        plusess.setText("+");
+        plusess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plusessActionPerformed(evt);
+            }
+        });
+        getContentPane().add(plusess, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
+
+        pluscoul.setText("+");
+        pluscoul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pluscoulActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pluscoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, -1, -1));
+
+        moinsess.setText("-");
+        moinsess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moinsessActionPerformed(evt);
+            }
+        });
+        getContentPane().add(moinsess, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+
+        moinscoul.setText("-");
+        moinscoul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moinscoulActionPerformed(evt);
+            }
+        });
+        getContentPane().add(moinscoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
+
+        jLabel1.setText("nb essais");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 25, -1, -1));
+
+        jLabel2.setText("nombre de couleurs");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 75, -1, -1));
+
+        nbessais.setText("mode");
+        getContentPane().add(nbessais, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 25, -1, -1));
+
+        nbcoul.setText("nb couleurs");
+        getContentPane().add(nbcoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 75, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        nbbonneplace.setVisible(true);
+        GrilleJeugraph.setVisible(true);
+        nbbonnecouleur.setVisible(true);
+        int nbcoups = Integer.parseInt(nbessais.getText());
+        GrilleJeugraph.setPreferredSize(new Dimension(nbcoups * 50, 200));
+        nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 60));
+        nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 60));
+        for (int z = 0; z < nbcoups; z++) {
+            for (int y = 0; y < 4; y++) {
+                Cellulegraphique Cellgraph = new Cellulegraphique();
+                GrilleJeugraph.add(Cellgraph);
+
+            }
+        }
+        jButton3.setEnabled(false);
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void plusessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusessActionPerformed
+        nbessais.setText(Integer.parseInt(nbessais.getText()) + 1 + "");
+// TODO add your handling code here:
+    }//GEN-LAST:event_plusessActionPerformed
+
+    private void moinsessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinsessActionPerformed
+        nbessais.setText(Integer.parseInt(nbessais.getText()) - 1 + "");
+// TODO add your handling code here:
+    }//GEN-LAST:event_moinsessActionPerformed
+
+    private void pluscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluscoulActionPerformed
+        nbcoul.setText(Integer.parseInt(nbcoul.getText()) + 1 + "");
+// TODO add your handling code here:
+    }//GEN-LAST:event_pluscoulActionPerformed
+
+    private void moinscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinscoulActionPerformed
+        nbcoul.setText(Integer.parseInt(nbcoul.getText()) - 1 + "");
+// TODO add your handling code here:
+    }//GEN-LAST:event_moinscoulActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,7 +228,16 @@ public class Mastergraphique extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GrilleJeugraph;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton moinscoul;
+    private javax.swing.JButton moinsess;
+    private javax.swing.JPanel nbbonnecouleur;
+    private javax.swing.JPanel nbbonneplace;
+    private javax.swing.JLabel nbcoul;
+    private javax.swing.JLabel nbessais;
+    private javax.swing.JButton pluscoul;
+    private javax.swing.JButton plusess;
     // End of variables declaration//GEN-END:variables
 }
