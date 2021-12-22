@@ -44,7 +44,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         GrilleJeugraph = new javax.swing.JPanel();
         nbbonnecouleur = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        buttonstart = new javax.swing.JButton();
         plusess = new javax.swing.JButton();
         pluscoul = new javax.swing.JButton();
         moinsess = new javax.swing.JButton();
@@ -54,6 +54,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbessais = new javax.swing.JLabel();
         nbcoul = new javax.swing.JLabel();
         nbbonneplace = new javax.swing.JPanel();
+        Panelcouleur = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -81,13 +82,13 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
-        jButton3.setText("START");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonstart.setText("START");
+        buttonstart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                buttonstartActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
+        getContentPane().add(buttonstart, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
 
         plusess.setText("+");
         plusess.addActionListener(new java.awt.event.ActionListener() {
@@ -150,10 +151,14 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
+        Panelcouleur.setPreferredSize(new java.awt.Dimension(900, 75));
+        Panelcouleur.setLayout(new java.awt.GridLayout());
+        getContentPane().add(Panelcouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void buttonstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonstartActionPerformed
         nbbonneplace.setVisible(true);
         GrilleJeugraph.setVisible(true);
         nbbonnecouleur.setVisible(true);
@@ -168,9 +173,19 @@ public class Mastergraphique extends javax.swing.JFrame {
 
             }
         }
-        jButton3.setEnabled(false);
+        for (int u = 0; u < Integer.parseInt(nbcoul.getText()); u++) {
+                Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[u]);
+                Panelcouleur.add(Carrecouleur);
+
+        }
+        buttonstart.setEnabled(false);
+        moinsess.setEnabled(false);
+        moinscoul.setEnabled(false);
+        plusess.setEnabled(false);
+        pluscoul.setEnabled(false);
+      
 // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_buttonstartActionPerformed
 
     private void plusessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusessActionPerformed
         if (Integer.parseInt(nbessais.getText()) == 17){
@@ -203,11 +218,11 @@ public class Mastergraphique extends javax.swing.JFrame {
     }//GEN-LAST:event_pluscoulActionPerformed
 
     private void moinscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinscoulActionPerformed
-        if (Integer.parseInt(nbessais.getText()) == 17){
-            nbcoul.setText(Integer.parseInt(nbcoul.getText()) - 1 + "");
+        if (Integer.parseInt(nbcoul.getText()) == 2){
+            nbcoul.setText(Integer.parseInt(nbcoul.getText()) + "");
         }
         else{
-            nbessais.setText(Integer.parseInt(nbessais.getText()) - 1 + "");
+            nbcoul.setText(Integer.parseInt(nbcoul.getText()) - 1 + "");
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_moinscoulActionPerformed
@@ -249,7 +264,8 @@ public class Mastergraphique extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GrilleJeugraph;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JPanel Panelcouleur;
+    private javax.swing.JButton buttonstart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton moinscoul;
