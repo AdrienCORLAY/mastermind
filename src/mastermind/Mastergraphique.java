@@ -43,7 +43,6 @@ public class Mastergraphique extends javax.swing.JFrame {
     private void initComponents() {
 
         GrilleJeugraph = new javax.swing.JPanel();
-        nbbonneplace = new javax.swing.JPanel();
         nbbonnecouleur = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         plusess = new javax.swing.JButton();
@@ -54,6 +53,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         nbessais = new javax.swing.JLabel();
         nbcoul = new javax.swing.JLabel();
+        nbbonneplace = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -64,22 +64,6 @@ public class Mastergraphique extends javax.swing.JFrame {
         GrilleJeugraph.setPreferredSize(new java.awt.Dimension(900, 200));
         GrilleJeugraph.setLayout(new java.awt.GridLayout(4, 12));
         getContentPane().add(GrilleJeugraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
-
-        nbbonneplace.setBackground(new java.awt.Color(255, 0, 51));
-        nbbonneplace.setPreferredSize(new java.awt.Dimension(600, 60));
-
-        javax.swing.GroupLayout nbbonneplaceLayout = new javax.swing.GroupLayout(nbbonneplace);
-        nbbonneplace.setLayout(nbbonneplaceLayout);
-        nbbonneplaceLayout.setHorizontalGroup(
-            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-        nbbonneplaceLayout.setVerticalGroup(
-            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 900, 60));
 
         nbbonnecouleur.setBackground(new java.awt.Color(0, 255, 0));
         nbbonnecouleur.setPreferredSize(new java.awt.Dimension(900, 60));
@@ -149,6 +133,23 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbcoul.setText("nb couleurs");
         getContentPane().add(nbcoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 75, -1, -1));
 
+        nbbonneplace.setBackground(new java.awt.Color(204, 0, 0));
+        nbbonneplace.setPreferredSize(new java.awt.Dimension(60, 60));
+        nbbonneplace.setRequestFocusEnabled(false);
+
+        javax.swing.GroupLayout nbbonneplaceLayout = new javax.swing.GroupLayout(nbbonneplace);
+        nbbonneplace.setLayout(nbbonneplaceLayout);
+        nbbonneplaceLayout.setHorizontalGroup(
+            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        nbbonneplaceLayout.setVerticalGroup(
+            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,9 +158,9 @@ public class Mastergraphique extends javax.swing.JFrame {
         GrilleJeugraph.setVisible(true);
         nbbonnecouleur.setVisible(true);
         int nbcoups = Integer.parseInt(nbessais.getText());
+        nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 60));
         GrilleJeugraph.setPreferredSize(new Dimension(nbcoups * 50, 200));
         nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 60));
-        nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 60));
         for (int z = 0; z < nbcoups; z++) {
             for (int y = 0; y < 4; y++) {
                 Cellulegraphique Cellgraph = new Cellulegraphique();
@@ -172,22 +173,42 @@ public class Mastergraphique extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void plusessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusessActionPerformed
-        nbessais.setText(Integer.parseInt(nbessais.getText()) + 1 + "");
+        if (Integer.parseInt(nbessais.getText()) == 17){
+            nbessais.setText(Integer.parseInt(nbessais.getText()) + "");
+        }
+        else{
+            nbessais.setText(Integer.parseInt(nbessais.getText()) + 1 + "");
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_plusessActionPerformed
 
     private void moinsessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinsessActionPerformed
-        nbessais.setText(Integer.parseInt(nbessais.getText()) - 1 + "");
+        if (Integer.parseInt(nbessais.getText()) == 2){
+            nbessais.setText(Integer.parseInt(nbessais.getText()) + "");
+        }
+        else{
+            nbessais.setText(Integer.parseInt(nbessais.getText()) - 1 + "");
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_moinsessActionPerformed
 
     private void pluscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluscoulActionPerformed
-        nbcoul.setText(Integer.parseInt(nbcoul.getText()) + 1 + "");
+        if (Integer.parseInt(nbcoul.getText()) == 12){
+            nbcoul.setText(Integer.parseInt(nbcoul.getText()) + "");
+        }
+        else{
+            nbcoul.setText(Integer.parseInt(nbcoul.getText()) + 1 + "");
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_pluscoulActionPerformed
 
     private void moinscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinscoulActionPerformed
-        nbcoul.setText(Integer.parseInt(nbcoul.getText()) - 1 + "");
+        if (Integer.parseInt(nbessais.getText()) == 17){
+            nbcoul.setText(Integer.parseInt(nbcoul.getText()) - 1 + "");
+        }
+        else{
+            nbessais.setText(Integer.parseInt(nbessais.getText()) - 1 + "");
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_moinscoulActionPerformed
 
