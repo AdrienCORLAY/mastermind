@@ -5,6 +5,8 @@
 package mastermind;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -20,7 +22,7 @@ public class Mastergraphique extends javax.swing.JFrame {
     CouleurMaster couleurmaster = new CouleurMaster(0);
     String[] tabbase = new String[4];
     Scanner scanner = new Scanner(System.in);
-    GrilleMaster grillejeu;
+    GrilleMaster grillejeu = new GrilleMaster();
 
     public Mastergraphique() {
 
@@ -157,24 +159,48 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void initialiserPartie(){
+        
+        grillejeu = new GrilleMaster();
+        Random rdc = new Random();
+        for (int i =0 ; i<=3 ; i++){
+            int nbcouleur;
+            nbcouleur = rdc.nextInt(7);
+            tabbase [i] = couleurmaster.Tableaucouleur[nbcouleur];
+        }
+    }
+    
     private void buttonstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonstartActionPerformed
         nbbonneplace.setVisible(true);
         GrilleJeugraph.setVisible(true);
         nbbonnecouleur.setVisible(true);
+        initialiserPartie();
+        
         int nbcoups = Integer.parseInt(nbessais.getText());
         nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 60));
         GrilleJeugraph.setPreferredSize(new Dimension(nbcoups * 50, 200));
         nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 60));
         for (int z = 0; z < nbcoups; z++) {
             for (int y = 0; y < 4; y++) {
-                Cellulegraphique Cellgraph = new Cellulegraphique();
+                Cellulegraphique Cellgraph = new Cellulegraphique(grillejeu.grilleJeu[z][y]);
+                Cellgraph.addActionListener(new java.awt.event.ActionListener(){
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        CelluleMaster cell = Cellgraph.celluleAssociee;
+                        //if (cell.) {
+                        //}
+                        
+                        
+                    }
+                    
+                });
                 GrilleJeugraph.add(Cellgraph);
-
             }
         }
-        for (int u = 0; u < Integer.parseInt(nbcoul.getText()); u++) {
-                Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[u]);
+        
+        int nombrecoul = Integer.parseInt(nbcoul.getText());
+        for (int v = 0; v < nombrecoul; v++) {
+                Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
                 Panelcouleur.add(Carrecouleur);
 
         }
