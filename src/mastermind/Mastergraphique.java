@@ -4,6 +4,7 @@
  */
 package mastermind;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.Random;
@@ -22,7 +23,8 @@ public class Mastergraphique extends javax.swing.JFrame {
     CouleurMaster couleurmaster = new CouleurMaster(0);
     String[] tabbase = new String[4];
     Scanner scanner = new Scanner(System.in);
-    GrilleMaster grillejeu = new GrilleMaster();
+    GrilleMaster grillejeu;
+    
 
     public Mastergraphique() {
 
@@ -30,6 +32,8 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonneplace.setVisible(false);
         GrilleJeugraph.setVisible(false);
         nbbonnecouleur.setVisible(false);
+        Textecouleur.setVisible(false);
+        buttonvalid.setVisible(false);
         nbessais.setText(nombredecoups + "");
         nbcoul.setText(nombredecouleur + "");
 
@@ -57,6 +61,8 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbcoul = new javax.swing.JLabel();
         nbbonneplace = new javax.swing.JPanel();
         Panelcouleur = new javax.swing.JPanel();
+        buttonvalid = new javax.swing.JButton();
+        Textecouleur = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -155,14 +161,20 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         Panelcouleur.setPreferredSize(new java.awt.Dimension(900, 75));
         Panelcouleur.setLayout(new java.awt.GridLayout());
-        getContentPane().add(Panelcouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
+        getContentPane().add(Panelcouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, -1, -1));
+
+        buttonvalid.setText("Valider");
+        getContentPane().add(buttonvalid, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, -1, -1));
+
+        Textecouleur.setText("aucune couleur sélectionnée");
+        getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 480, 170, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public void initialiserPartie(){
+    public void initialiserPartie(int essais){
         
-        grillejeu = new GrilleMaster();
+        grillejeu = new GrilleMaster(essais);
         Random rdc = new Random();
         for (int i =0 ; i<=3 ; i++){
             int nbcouleur;
@@ -175,35 +187,54 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonneplace.setVisible(true);
         GrilleJeugraph.setVisible(true);
         nbbonnecouleur.setVisible(true);
-        initialiserPartie();
+        Textecouleur.setVisible(true);
+        buttonvalid.setVisible(true);
+        initialiserPartie(Integer.parseInt(nbessais.getText()));
         
         int nbcoups = Integer.parseInt(nbessais.getText());
         nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 60));
         GrilleJeugraph.setPreferredSize(new Dimension(nbcoups * 50, 200));
         nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 60));
+        
+        int nombrecoul = Integer.parseInt(nbcoul.getText());
+        for (int v = 0; v < nombrecoul; v++) {
+                Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
+                Carrecouleur.addActionListener(new java.awt.event.ActionListener(){
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                               Textecouleur.setText(Carrecouleur.couleurAssociee);
+                           }
+                });
+                Panelcouleur.add(Carrecouleur);
+
+        }
+        Textecouleur.repaint();
+        String couleuraffiche = null;
+        couleuraffiche = Textecouleur.getText();
         for (int z = 0; z < nbcoups; z++) {
             for (int y = 0; y < 4; y++) {
-                Cellulegraphique Cellgraph = new Cellulegraphique(grillejeu.grilleJeu[z][y]);
+                Cellulegraphique Cellgraph = new Cellulegraphique(grillejeu.grilleJeu[z][y],couleuraffiche);
+                
                 Cellgraph.addActionListener(new java.awt.event.ActionListener(){
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        CelluleMaster cell = Cellgraph.celluleAssociee;
-                        //if (cell.) {
-                        //}
                         
+                        CelluleMaster cell = Cellgraph.celluleAssociee;
+                        if (Textecouleur.getText() == "aucune couleur sélectionnée"){
+                            return;
+                        }
+                        else{
+                             
+                        }
                         
                     }
+
+                    
                     
                 });
                 GrilleJeugraph.add(Cellgraph);
             }
         }
         
-        int nombrecoul = Integer.parseInt(nbcoul.getText());
-        for (int v = 0; v < nombrecoul; v++) {
-                Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
-                Panelcouleur.add(Carrecouleur);
-
-        }
+        
         buttonstart.setEnabled(false);
         moinsess.setEnabled(false);
         moinscoul.setEnabled(false);
@@ -291,7 +322,9 @@ public class Mastergraphique extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GrilleJeugraph;
     private javax.swing.JPanel Panelcouleur;
+    private javax.swing.JLabel Textecouleur;
     private javax.swing.JButton buttonstart;
+    private javax.swing.JButton buttonvalid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton moinscoul;
