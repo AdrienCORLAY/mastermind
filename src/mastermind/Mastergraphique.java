@@ -26,10 +26,13 @@ public class Mastergraphique extends javax.swing.JFrame {
     String[] tabbase = new String[4];
     Scanner scanner = new Scanner(System.in);
     GrilleMastergraph grillejeu;
-    int touractuel;
+    int touractuel = 0;
     private Cellulegraphique[][] tableauBoutons;
+    BonnePlace [] tableauplace;
+    BonneCouleur [] tableaucouleur;
     BonneCouleur bonc;
     BonnePlace bonp;
+    
 
     public Mastergraphique() {
 
@@ -163,16 +166,12 @@ public class Mastergraphique extends javax.swing.JFrame {
     public void initialiserPartie(int essais) {
 
         grillejeu = new GrilleMastergraph(essais);
-        Random rdc = new Random();
-        for (int i = 0; i <= 3; i++) {
-            int nbcouleur;
-            nbcouleur = rdc.nextInt(7);
-            tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];
-        }
+        
+        
     }
 
     private void buttonstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonstartActionPerformed
-        int tourDeJeu = 0;
+        Random rdc = new Random();
         nbbonneplace.setVisible(true);
         GrilleJeugraph.setVisible(true);
         nbbonnecouleur.setVisible(true);
@@ -185,7 +184,24 @@ public class Mastergraphique extends javax.swing.JFrame {
         GrilleJeugraph.setPreferredSize(new Dimension(nbcoups * 50, 200));
         nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 60));
 
+        tableaucouleur = new BonneCouleur[nbcoups];
+        tableauplace = new BonnePlace[nbcoups];
+        for (int place = 0; place < nbcoups; place++){
+            bonp = new BonnePlace(place);
+            nbbonneplace.add(bonp);
+            tableauplace[place] = bonp;
+            bonc = new BonneCouleur(place);
+            nbbonnecouleur.add(bonc);
+            tableaucouleur[place] = bonc;
+        }
+        
+        
         int nombrecoul = Integer.parseInt(nbcoul.getText());
+        for (int i = 0; i <= 3; i++) {
+            int nbcouleur;
+            nbcouleur = rdc.nextInt(nombrecoul);
+            tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];
+        }
         for (int v = 0; v < nombrecoul; v++) {
             Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
             Carrecouleur.addActionListener(new java.awt.event.ActionListener() {
@@ -196,28 +212,24 @@ public class Mastergraphique extends javax.swing.JFrame {
             Panelcouleur.add(Carrecouleur);
 
         }
-        for (int f = 0; f < nbcoups; f++) {
-            bonc = new BonneCouleur();
-        }
-        
-        for (int p = 0; p < nbcoups; p++) {
-            
-        }
+       
         
         Textecouleur.repaint();
         String couleuraffiche = null;
-        couleuraffiche = Textecouleur.getText();
+        //couleuraffiche = Textecouleur.getText();
+        
         tableauBoutons = new Cellulegraphique[nbcoups][4];
         for (int ligne = 0; ligne < 4; ligne++) {
             for (int col = 0; col < nbcoups; col++) {
-                Cellulegraphique cellGraph = new Cellulegraphique(grillejeu.grilleJeu[col][ligne], couleuraffiche);
+                Cellulegraphique cellGraph = new Cellulegraphique(ligne,col, couleuraffiche);
                 tableauBoutons[col][ligne] = cellGraph;
                 cellGraph.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        cellGraph.couleurAssociee = Textecouleur.getText();
-                        //cellGraph.setBackground(cellGraph.convertColor(Textecouleur.getText()));
-
-                        //cellGraph.repaint();
+                        
+                        if (touractuel == cellGraph.colonne){
+                           cellGraph.couleurAssociee = Textecouleur.getText();
+                        }
+                     
                     }
 
                 });
@@ -225,7 +237,7 @@ public class Mastergraphique extends javax.swing.JFrame {
                 GrilleJeugraph.add(cellGraph);
                 GrilleJeugraph.repaint();
 
-                if (col != tourDeJeu) {
+                if (col != touractuel) {
                     tableauBoutons[col][ligne].setEnabled(false);
                 }
 
@@ -286,31 +298,49 @@ public class Mastergraphique extends javax.swing.JFrame {
     }//GEN-LAST:event_moinscoulActionPerformed
 
     private void buttonvalidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonvalidActionPerformed
+
         int nbcoups = Integer.parseInt(nbessais.getText());
         for (int li = 0; li < 4; li++) {
             for (int co = 0; co <= touractuel; co++) {
                 if (tableauBoutons[co][li].couleurAssociee == null){
+                    
                     return;
                 }
             }
         }
-        bonp = new BonnePlace();
-        nbbonneplace.add(bonp);
-        int nbp = 0;
-        int nbc = 0;
-        for (int cas = 0; cas <= 3; cas++) {
-                if (tableauBoutons[cas][touractuel].couleurAssociee == tabbase[cas]) {
-                    nbp = nbp + 1;
+        
+        int nbplace = 0;
+        int nbcouleur = 0;
+        for (int ligne = 0; ligne <= 3; ligne++) {
+            if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[ligne])) {
+                    nbplace = nbplace + 1;
                 } 
                 else {
-                    for (int q = 0; q <= 3; q++) {
-                        if (tableauBoutons[cas][touractuel].couleurAssociee == tabbase[q]) {
-                            nbc = nbc + 1;
+                    for (int position = 0; position <= 3; position++) {
+                        if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[position])) {
+                            nbcouleur = nbcouleur + 1;
+                            break;
                         }
                     }
                 }
+                
         }
-        bonp.setText(nbp);
+        String stringnbp = String.valueOf(nbplace);
+        for (int place = 0; place < nbcoups; place++){
+            if (bonp.place == touractuel){
+             bonp.setText(stringnbp);
+            }
+            String stringnbc = String.valueOf(nbcouleur);
+            if (bonc.place == touractuel){
+                 bonc.setText(stringnbc);
+            }
+        }
+        
+        
+        touractuel = touractuel + 1;
+        for (int li = 0; li<=3 ; li++){
+            tableauBoutons[touractuel][li].setEnabled(true);
+        }
     }//GEN-LAST:event_buttonvalidActionPerformed
 
     /**
