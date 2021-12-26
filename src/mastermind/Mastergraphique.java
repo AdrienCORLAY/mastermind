@@ -6,9 +6,11 @@ package mastermind;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JButton;
 
 /**
  *
@@ -20,11 +22,10 @@ public class Mastergraphique extends javax.swing.JFrame {
     int nombredecoups = 12;
     int nombredecouleur = 8;
     String[] Listepions = new String[96];
-    CouleurMaster couleurmaster = new CouleurMaster(0);
+    CouleurMastergraph couleurmaster = new CouleurMastergraph(0);
     String[] tabbase = new String[4];
     Scanner scanner = new Scanner(System.in);
-    GrilleMaster grillejeu;
-    
+    GrilleMastergraph grillejeu;
 
     public Mastergraphique() {
 
@@ -171,18 +172,18 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void initialiserPartie(int essais){
-        
-        grillejeu = new GrilleMaster(essais);
+
+    public void initialiserPartie(int essais) {
+
+        grillejeu = new GrilleMastergraph(essais);
         Random rdc = new Random();
-        for (int i =0 ; i<=3 ; i++){
+        for (int i = 0; i <= 3; i++) {
             int nbcouleur;
             nbcouleur = rdc.nextInt(7);
-            tabbase [i] = couleurmaster.Tableaucouleur[nbcouleur];
+            tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];
         }
     }
-    
+
     private void buttonstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonstartActionPerformed
         nbbonneplace.setVisible(true);
         GrilleJeugraph.setVisible(true);
@@ -190,95 +191,153 @@ public class Mastergraphique extends javax.swing.JFrame {
         Textecouleur.setVisible(true);
         buttonvalid.setVisible(true);
         initialiserPartie(Integer.parseInt(nbessais.getText()));
-        
+
         int nbcoups = Integer.parseInt(nbessais.getText());
         nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 60));
         GrilleJeugraph.setPreferredSize(new Dimension(nbcoups * 50, 200));
         nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 60));
-        
+
         int nombrecoul = Integer.parseInt(nbcoul.getText());
         for (int v = 0; v < nombrecoul; v++) {
-                Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
-                Carrecouleur.addActionListener(new java.awt.event.ActionListener(){
-                           public void actionPerformed(java.awt.event.ActionEvent evt) {
-                               Textecouleur.setText(Carrecouleur.couleurAssociee);
-                           }
-                });
-                Panelcouleur.add(Carrecouleur);
+            Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
+            Carrecouleur.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    Textecouleur.setText(Carrecouleur.couleurAssociee);
+                }
+            });
+            Panelcouleur.add(Carrecouleur);
 
         }
+        Cellulegraphique[][] tableauBoutons = new Cellulegraphique[nbcoups][4];
         Textecouleur.repaint();
         String couleuraffiche = null;
         couleuraffiche = Textecouleur.getText();
+        int tourjouer = 0;
         for (int z = 0; z < nbcoups; z++) {
             for (int y = 0; y < 4; y++) {
-                Cellulegraphique Cellgraph = new Cellulegraphique(grillejeu.grilleJeu[z][y],couleuraffiche);
-                
-                Cellgraph.addActionListener(new java.awt.event.ActionListener(){
+                Cellulegraphique cellGraph = new Cellulegraphique(grillejeu.grilleJeu[z][y], couleuraffiche);
+                tableauBoutons[z][y] = cellGraph;
+                cellGraph.addActionListener(new java.awt.event.ActionListener() {
+
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        
-                        CelluleMaster cell = Cellgraph.celluleAssociee;
-                        if (Textecouleur.getText() == "aucune couleur sélectionnée"){
-                            return;
+                        if ("aucune couleur sélectionnée".equals(Textecouleur.getText())) {
+                        } 
+                        else {
+                            cellGraph.setBackground(cellGraph.convertColor(Textecouleur.getText()));
+                            GrilleJeugraph.repaint();
                         }
-                        else{
-                             
-                        }
-                        
+
                     }
 
-                    
-                    
                 });
-                GrilleJeugraph.add(Cellgraph);
+
+                GrilleJeugraph.add(cellGraph);
+                GrilleJeugraph.repaint();
+
             }
         }
-        
-        
+        /*       if (z > tourjouer){
+                   cellGraph.setEnabled(false);               
+                }
+                if (z <= tourjouer){
+                   cellGraph.setEnabled(true);               
+                }
+                GrilleJeugraph.repaint();
+        tourjouer = tourjouer + 1;
+         */
         buttonstart.setEnabled(false);
         moinsess.setEnabled(false);
         moinscoul.setEnabled(false);
         plusess.setEnabled(false);
         pluscoul.setEnabled(false);
-      
+    }
+
+    /*public void afficherGrilleSurConsole(int nb){
+        GrilleJeugraph.removeAll();
+        for( int i=0; i<nb; i++){
+            for( int j=0; j<=3; j++){
+                if ("rouge".equals(couleurAssociee)) {
+                    Cellulegraphique Cellgraph = new Cellulegraphique(grillejeu.grilleJeu[i][j], couleuraffiche);
+                }
+                else if ("jaune".equals(couleurAssociee)) {
+                    setBackground(Color.YELLOW);
+                }
+                else if ("vert".equals(couleurAssociee)) {
+                    setBackground(Color.GREEN);
+                }
+                else if ("bleu".equals(couleurAssociee)) {
+                    setBackground(Color.BLUE);
+                }
+                else if ("orange".equals(couleurAssociee)) {
+                    setBackground(Color.ORANGE);
+                }
+                else if ("blanc".equals(couleurAssociee)) {
+                    setBackground(Color.WHITE);
+                }
+                else if ("noir".equals(couleurAssociee)) {
+                    setBackground(Color.BLACK);
+                }
+                else if ("rose".equals(couleurAssociee)) {
+                    setBackground(Color.PINK);
+                }
+                else if ("magenta".equals(couleurAssociee)) {
+                    setBackground(Color.MAGENTA);
+                }
+                else if ("gris clair".equals(couleurAssociee)) {
+                    setBackground(Color.LIGHT_GRAY);
+                }
+                else if ("noir".equals(couleurAssociee)) {
+                    setBackground(Color.BLACK);
+                }
+                else if ("cyan".equals(couleurAssociee)) {
+                    setBackground(Color.CYAN);
+                }
+                else if ("gris fonce".equals(couleurAssociee)) {
+                    setBackground(Color.DARK_GRAY);
+                }
+                else {
+                    setBackground(Color.WHITE);
+                }
+                GrilleJeugraph.add(Cellgraph);
+                GrilleJeugraph.repaint();
+            }
+        }
+        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_buttonstartActionPerformed
-
+*/
     private void plusessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusessActionPerformed
-        if (Integer.parseInt(nbessais.getText()) == 17){
+        if (Integer.parseInt(nbessais.getText()) == 17) {
             nbessais.setText(Integer.parseInt(nbessais.getText()) + "");
-        }
-        else{
+        } else {
             nbessais.setText(Integer.parseInt(nbessais.getText()) + 1 + "");
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_plusessActionPerformed
 
     private void moinsessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinsessActionPerformed
-        if (Integer.parseInt(nbessais.getText()) == 2){
+        if (Integer.parseInt(nbessais.getText()) == 2) {
             nbessais.setText(Integer.parseInt(nbessais.getText()) + "");
-        }
-        else{
+        } else {
             nbessais.setText(Integer.parseInt(nbessais.getText()) - 1 + "");
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_moinsessActionPerformed
 
     private void pluscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluscoulActionPerformed
-        if (Integer.parseInt(nbcoul.getText()) == 12){
+        if (Integer.parseInt(nbcoul.getText()) == 12) {
             nbcoul.setText(Integer.parseInt(nbcoul.getText()) + "");
-        }
-        else{
+        } else {
             nbcoul.setText(Integer.parseInt(nbcoul.getText()) + 1 + "");
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_pluscoulActionPerformed
 
     private void moinscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinscoulActionPerformed
-        if (Integer.parseInt(nbcoul.getText()) == 2){
+        if (Integer.parseInt(nbcoul.getText()) == 2) {
             nbcoul.setText(Integer.parseInt(nbcoul.getText()) + "");
-        }
-        else{
+        } else {
             nbcoul.setText(Integer.parseInt(nbcoul.getText()) - 1 + "");
         }
 // TODO add your handling code here:
