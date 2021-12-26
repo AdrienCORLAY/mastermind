@@ -38,6 +38,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         initComponents();
         nbbonneplace.setVisible(false);
+        Labelgagne.setVisible(false);
         GrilleJeugraph.setVisible(false);
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);
@@ -71,6 +72,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         Panelcouleur = new javax.swing.JPanel();
         buttonvalid = new javax.swing.JButton();
         Textecouleur = new javax.swing.JLabel();
+        Labelgagne = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -159,6 +161,10 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         Textecouleur.setText("aucune couleur sélectionnée");
         getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 480, 170, 30));
+
+        Labelgagne.setBackground(new java.awt.Color(0, 51, 255));
+        Labelgagne.setText("Tu es un champion!!");
+        getContentPane().add(Labelgagne, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 360, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -313,27 +319,32 @@ public class Mastergraphique extends javax.swing.JFrame {
         int nbcouleur = 0;
         for (int ligne = 0; ligne <= 3; ligne++) {
             if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[ligne])) {
-                    nbplace = nbplace + 1;
-                } 
-                else {
-                    for (int position = 0; position <= 3; position++) {
-                        if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[position])) {
-                            nbcouleur = nbcouleur + 1;
-                            break;
-                        }
+                nbplace = nbplace + 1;
+            } 
+            else {
+                for (int position = 0; position <= 3; position++) {
+                    if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[position])) {
+                        nbcouleur = nbcouleur + 1;
+                        break;
                     }
                 }
+            }
                 
         }
         String stringnbp = String.valueOf(nbplace);
+        String stringnbc = String.valueOf(nbcouleur);
         for (int place = 0; place < nbcoups; place++){
-            if (bonp.place == touractuel){
-             bonp.setText(stringnbp);
+            if (tableauplace[place].place == touractuel){
+                tableauplace[place].setText("         " + stringnbp);
             }
-            String stringnbc = String.valueOf(nbcouleur);
-            if (bonc.place == touractuel){
-                 bonc.setText(stringnbc);
+            
+            if (tableaucouleur[place].place == touractuel){
+                tableaucouleur[place].setText("         " + stringnbc);
             }
+        }
+        
+        if (nbplace == 4){
+            Labelgagne.setVisible(true);
         }
         
         
@@ -380,6 +391,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GrilleJeugraph;
+    private javax.swing.JLabel Labelgagne;
     private javax.swing.JPanel Panelcouleur;
     private javax.swing.JLabel Textecouleur;
     private javax.swing.JButton buttonstart;
