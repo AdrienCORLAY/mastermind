@@ -8,15 +8,16 @@ package mastermind;
  *
  * @author adrie
  */
-public class GrilleMaster {
-    CouleurMaster couleurmaster;
+public class GrilleMastergraph {
+    CouleurMastergraph couleurmaster;
     
-    CelluleMaster [][] grilleJeu = new CelluleMaster [12][4];
+    CelluleMastergraph [][] grilleJeu;
     
-    public GrilleMaster(){ 
+    public GrilleMastergraph(int NB){ 
+        grilleJeu = new CelluleMastergraph [NB][4];
         for (int i=0;i<=3;i++){
-            for (int j=0;j<=11;j++){
-                grilleJeu[j][i] = new CelluleMaster();
+            for (int j=0;j<NB;j++){
+                grilleJeu[j][i] = new CelluleMastergraph();
             }
         } 
     }

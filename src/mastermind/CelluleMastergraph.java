@@ -8,24 +8,13 @@ package mastermind;
  *
  * @author adrie
  */
-public class CelluleMaster {
+public class CelluleMastergraph {
     String pionCourant;
-    CouleurMaster couleur;
-    String [] Tableaucouleur = {"jaune","rouge","vert","bleu","rose","blanc","orange","violet"};
     
-    public CelluleMaster(){
+    public CelluleMastergraph(){
         pionCourant = "vide" ;           
     }
     
-    public boolean affecterJeton(int i){
-        if("vide".equals(pionCourant)){
-            pionCourant = Tableaucouleur[i];
-            return true;
-        }
-        else{
-            return false ;
-        }
-    }
     
     public String lireCouleurPion(){
         return pionCourant;

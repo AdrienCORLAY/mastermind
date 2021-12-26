@@ -22,15 +22,15 @@ public class Masterpartie {
     int O = 59;
     int valeurcouleur = 0;
     String [] Listepions = new String[96];
-    CouleurMaster couleurmaster = new CouleurMaster(0); 
+    CouleurMastergraph couleurmaster = new CouleurMastergraph(0); 
     String [] tabbase = new String [4];
     Scanner scanner = new Scanner(System.in);
-    GrilleMaster grillejeu;
+    GrilleMastergraph grillejeu;
 
     
-    public void initialiserPartie(){
+    public void initialiserPartie(int nbess){
         
-        grillejeu = new GrilleMaster();
+        grillejeu = new GrilleMastergraph(nbess);
         Random rdc = new Random();
         for (int i =0 ; i<=3 ; i++){
             int nbcouleur;

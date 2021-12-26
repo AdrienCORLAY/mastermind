@@ -8,17 +8,17 @@ package mastermind;
  *
  * @author adrie
  */
-public class CouleurMaster {
+public class CouleurMastergraph {
     String Couleur ;
-    String [] Tableaucouleur = {"jaune","rouge","vert","bleu","rose","blanc","orange","violet"};
+    String [] Tableaucouleur = {"jaune","rouge","vert","bleu","rose","gris","orange","magenta","gris fonce","gris clair","noir","cyan"};
     
-    public CouleurMaster(int couleur){
-        Couleur = Tableaucouleur[couleur] ;
+    public CouleurMastergraph(int nbcouleur){
+        Couleur = Tableaucouleur[nbcouleur] ;
     }
-    public int AttribuerNbACouleur(String nb){
+    public int AttribuerNbACouleur(String lacouleur){
         int vreturn;
         for (int i = 0; i<=7;i++){
-            if (Tableaucouleur[i].equals(nb)){
+            if (Tableaucouleur[i].equals(lacouleur)){
                 vreturn = i;
                 return vreturn;
             }
