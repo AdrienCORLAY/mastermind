@@ -26,6 +26,10 @@ public class Mastergraphique extends javax.swing.JFrame {
     String[] tabbase = new String[4];
     Scanner scanner = new Scanner(System.in);
     GrilleMastergraph grillejeu;
+    int touractuel;
+    private Cellulegraphique[][] tableauBoutons;
+    BonneCouleur bonc;
+    BonnePlace bonp;
 
     public Mastergraphique() {
 
@@ -77,18 +81,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         nbbonnecouleur.setBackground(new java.awt.Color(0, 255, 0));
         nbbonnecouleur.setPreferredSize(new java.awt.Dimension(900, 60));
-
-        javax.swing.GroupLayout nbbonnecouleurLayout = new javax.swing.GroupLayout(nbbonnecouleur);
-        nbbonnecouleur.setLayout(nbbonnecouleurLayout);
-        nbbonnecouleurLayout.setHorizontalGroup(
-            nbbonnecouleurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-        nbbonnecouleurLayout.setVerticalGroup(
-            nbbonnecouleurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
+        nbbonnecouleur.setLayout(new java.awt.GridLayout());
         getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
         buttonstart.setText("START");
@@ -146,18 +139,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonneplace.setBackground(new java.awt.Color(204, 0, 0));
         nbbonneplace.setPreferredSize(new java.awt.Dimension(60, 60));
         nbbonneplace.setRequestFocusEnabled(false);
-
-        javax.swing.GroupLayout nbbonneplaceLayout = new javax.swing.GroupLayout(nbbonneplace);
-        nbbonneplace.setLayout(nbbonneplaceLayout);
-        nbbonneplaceLayout.setHorizontalGroup(
-            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-        nbbonneplaceLayout.setVerticalGroup(
-            nbbonneplaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
+        nbbonneplace.setLayout(new java.awt.GridLayout());
         getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         Panelcouleur.setPreferredSize(new java.awt.Dimension(900, 75));
@@ -165,6 +147,11 @@ public class Mastergraphique extends javax.swing.JFrame {
         getContentPane().add(Panelcouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, -1, -1));
 
         buttonvalid.setText("Valider");
+        buttonvalid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonvalidActionPerformed(evt);
+            }
+        });
         getContentPane().add(buttonvalid, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, -1, -1));
 
         Textecouleur.setText("aucune couleur sélectionnée");
@@ -185,6 +172,7 @@ public class Mastergraphique extends javax.swing.JFrame {
     }
 
     private void buttonstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonstartActionPerformed
+        int tourDeJeu = 0;
         nbbonneplace.setVisible(true);
         GrilleJeugraph.setVisible(true);
         nbbonnecouleur.setVisible(true);
@@ -208,25 +196,28 @@ public class Mastergraphique extends javax.swing.JFrame {
             Panelcouleur.add(Carrecouleur);
 
         }
-        Cellulegraphique[][] tableauBoutons = new Cellulegraphique[nbcoups][4];
+        for (int f = 0; f < nbcoups; f++) {
+            bonc = new BonneCouleur();
+        }
+        
+        for (int p = 0; p < nbcoups; p++) {
+            
+        }
+        
         Textecouleur.repaint();
         String couleuraffiche = null;
         couleuraffiche = Textecouleur.getText();
-        int tourjouer = 0;
-        for (int z = 0; z < nbcoups; z++) {
-            for (int y = 0; y < 4; y++) {
-                Cellulegraphique cellGraph = new Cellulegraphique(grillejeu.grilleJeu[z][y], couleuraffiche);
-                tableauBoutons[z][y] = cellGraph;
+        tableauBoutons = new Cellulegraphique[nbcoups][4];
+        for (int ligne = 0; ligne < 4; ligne++) {
+            for (int col = 0; col < nbcoups; col++) {
+                Cellulegraphique cellGraph = new Cellulegraphique(grillejeu.grilleJeu[col][ligne], couleuraffiche);
+                tableauBoutons[col][ligne] = cellGraph;
                 cellGraph.addActionListener(new java.awt.event.ActionListener() {
-
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        if ("aucune couleur sélectionnée".equals(Textecouleur.getText())) {
-                        } 
-                        else {
-                            cellGraph.setBackground(cellGraph.convertColor(Textecouleur.getText()));
-                            GrilleJeugraph.repaint();
-                        }
+                        cellGraph.couleurAssociee = Textecouleur.getText();
+                        //cellGraph.setBackground(cellGraph.convertColor(Textecouleur.getText()));
 
+                        //cellGraph.repaint();
                     }
 
                 });
@@ -234,79 +225,30 @@ public class Mastergraphique extends javax.swing.JFrame {
                 GrilleJeugraph.add(cellGraph);
                 GrilleJeugraph.repaint();
 
+                if (col != tourDeJeu) {
+                    tableauBoutons[col][ligne].setEnabled(false);
+                }
+
             }
+
         }
-        /*       if (z > tourjouer){
-                   cellGraph.setEnabled(false);               
-                }
-                if (z <= tourjouer){
-                   cellGraph.setEnabled(true);               
-                }
-                GrilleJeugraph.repaint();
-        tourjouer = tourjouer + 1;
-         */
+
+       
         buttonstart.setEnabled(false);
         moinsess.setEnabled(false);
         moinscoul.setEnabled(false);
         plusess.setEnabled(false);
         pluscoul.setEnabled(false);
-    }
+  //  }
 
-    /*public void afficherGrilleSurConsole(int nb){
-        GrilleJeugraph.removeAll();
-        for( int i=0; i<nb; i++){
-            for( int j=0; j<=3; j++){
-                if ("rouge".equals(couleurAssociee)) {
-                    Cellulegraphique Cellgraph = new Cellulegraphique(grillejeu.grilleJeu[i][j], couleuraffiche);
-                }
-                else if ("jaune".equals(couleurAssociee)) {
-                    setBackground(Color.YELLOW);
-                }
-                else if ("vert".equals(couleurAssociee)) {
-                    setBackground(Color.GREEN);
-                }
-                else if ("bleu".equals(couleurAssociee)) {
-                    setBackground(Color.BLUE);
-                }
-                else if ("orange".equals(couleurAssociee)) {
-                    setBackground(Color.ORANGE);
-                }
-                else if ("blanc".equals(couleurAssociee)) {
-                    setBackground(Color.WHITE);
-                }
-                else if ("noir".equals(couleurAssociee)) {
-                    setBackground(Color.BLACK);
-                }
-                else if ("rose".equals(couleurAssociee)) {
-                    setBackground(Color.PINK);
-                }
-                else if ("magenta".equals(couleurAssociee)) {
-                    setBackground(Color.MAGENTA);
-                }
-                else if ("gris clair".equals(couleurAssociee)) {
-                    setBackground(Color.LIGHT_GRAY);
-                }
-                else if ("noir".equals(couleurAssociee)) {
-                    setBackground(Color.BLACK);
-                }
-                else if ("cyan".equals(couleurAssociee)) {
-                    setBackground(Color.CYAN);
-                }
-                else if ("gris fonce".equals(couleurAssociee)) {
-                    setBackground(Color.DARK_GRAY);
-                }
-                else {
-                    setBackground(Color.WHITE);
-                }
-                GrilleJeugraph.add(Cellgraph);
-                GrilleJeugraph.repaint();
-            }
-        }
+    //public void afficherGrilleSurConsole(int nb){
+
+        
         
 
 // TODO add your handling code here:
     }//GEN-LAST:event_buttonstartActionPerformed
-*/
+
     private void plusessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusessActionPerformed
         if (Integer.parseInt(nbessais.getText()) == 17) {
             nbessais.setText(Integer.parseInt(nbessais.getText()) + "");
@@ -343,9 +285,37 @@ public class Mastergraphique extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_moinscoulActionPerformed
 
+    private void buttonvalidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonvalidActionPerformed
+        int nbcoups = Integer.parseInt(nbessais.getText());
+        for (int li = 0; li < 4; li++) {
+            for (int co = 0; co <= touractuel; co++) {
+                if (tableauBoutons[co][li].couleurAssociee == null){
+                    return;
+                }
+            }
+        }
+        bonp = new BonnePlace();
+        nbbonneplace.add(bonp);
+        int nbp = 0;
+        int nbc = 0;
+        for (int cas = 0; cas <= 3; cas++) {
+                if (tableauBoutons[cas][touractuel].couleurAssociee == tabbase[cas]) {
+                    nbp = nbp + 1;
+                } 
+                else {
+                    for (int q = 0; q <= 3; q++) {
+                        if (tableauBoutons[cas][touractuel].couleurAssociee == tabbase[q]) {
+                            nbc = nbc + 1;
+                        }
+                    }
+                }
+        }
+        bonp.setText(nbp);
+    }//GEN-LAST:event_buttonvalidActionPerformed
+
     /**
-     * @param args the command line arguments
-     */
+                         * @param args the command line arguments
+                         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
