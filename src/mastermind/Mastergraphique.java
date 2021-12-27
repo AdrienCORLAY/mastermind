@@ -49,6 +49,9 @@ public class Mastergraphique extends javax.swing.JFrame {
         Textecouleur.setVisible(false);
         buttonvalid.setVisible(false);
         boutonregle.setVisible(false);
+        couleurselec.setVisible(false);
+        bienplace.setVisible(false);
+        biencouleur.setVisible(false);
         boutonregle.setIcon(img_regle);
         nbessais.setText(nombredecoups + "");
         nbcoul.setText(nombredecouleur + "");
@@ -80,6 +83,9 @@ public class Mastergraphique extends javax.swing.JFrame {
         buttonvalid = new javax.swing.JButton();
         Textecouleur = new javax.swing.JLabel();
         boutonregle = new javax.swing.JButton();
+        couleurselec = new javax.swing.JLabel();
+        biencouleur = new javax.swing.JLabel();
+        bienplace = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 700));
@@ -91,7 +97,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         GrilleJeugraph.setLayout(new java.awt.GridLayout(4, 12));
         getContentPane().add(GrilleJeugraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
-        nbbonnecouleur.setBackground(new java.awt.Color(0, 255, 0));
+        nbbonnecouleur.setBackground(new java.awt.Color(255, 255, 255));
         nbbonnecouleur.setPreferredSize(new java.awt.Dimension(900, 60));
         nbbonnecouleur.setLayout(new java.awt.GridLayout());
         getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
@@ -136,13 +142,13 @@ public class Mastergraphique extends javax.swing.JFrame {
         });
         getContentPane().add(moinscoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
 
-        jLabel1.setText("nb essais");
+        jLabel1.setText("nombre essais");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 25, -1, -1));
 
         jLabel2.setText("nombre de couleurs");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 75, -1, -1));
 
-        nbessais.setText("mode");
+        nbessais.setText("nombre");
         getContentPane().add(nbessais, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 25, -1, -1));
 
         nbcoul.setText("nb couleurs");
@@ -167,8 +173,17 @@ public class Mastergraphique extends javax.swing.JFrame {
         getContentPane().add(buttonvalid, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, -1, -1));
 
         Textecouleur.setText("aucune couleur sélectionnée");
-        getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 480, 170, 30));
+        getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 480, 170, 30));
         getContentPane().add(boutonregle, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, -1, -1));
+
+        couleurselec.setText("Couleur sélectionée:");
+        getContentPane().add(couleurselec, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 480, -1, 30));
+
+        biencouleur.setText("La couleur de ton pion est dans la combinaison finale");
+        getContentPane().add(biencouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, 330, -1));
+
+        bienplace.setText("Ton pion est de la bonne couleur et il est bien placé");
+        getContentPane().add(bienplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -188,6 +203,9 @@ public class Mastergraphique extends javax.swing.JFrame {
         Textecouleur.setVisible(true);
         buttonvalid.setVisible(true);
         boutonregle.setVisible(true);
+        couleurselec.setVisible(true);
+        bienplace.setVisible(true);
+        biencouleur.setVisible(true);
         initialiserPartie(Integer.parseInt(nbessais.getText()));
 
         int nbcoups = Integer.parseInt(nbessais.getText());
@@ -319,7 +337,7 @@ public class Mastergraphique extends javax.swing.JFrame {
                 }
             }
         }
-        
+       
         int nbplace = 0;
         int nbcouleur = 0;
         for (int ligne = 0; ligne <= 3; ligne++) {
@@ -420,9 +438,12 @@ public class Mastergraphique extends javax.swing.JFrame {
     private javax.swing.JPanel GrilleJeugraph;
     private javax.swing.JPanel Panelcouleur;
     private javax.swing.JLabel Textecouleur;
+    private javax.swing.JLabel biencouleur;
+    private javax.swing.JLabel bienplace;
     private javax.swing.JButton boutonregle;
     private javax.swing.JButton buttonstart;
     private javax.swing.JButton buttonvalid;
+    private javax.swing.JLabel couleurselec;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton moinscoul;
