@@ -11,6 +11,7 @@ import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -36,6 +37,7 @@ public class Mastergraphique extends javax.swing.JFrame {
     BonnePlace bonp;
     JLabel labelgagnantplace;
     JLabel labelgagnantcouleur;
+    ImageIcon img_regle = new javax.swing.ImageIcon(getClass().getResource("/images/Regle.png"));
     
 
     public Mastergraphique() {
@@ -46,6 +48,8 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);
         buttonvalid.setVisible(false);
+        boutonregle.setVisible(false);
+        boutonregle.setIcon(img_regle);
         nbessais.setText(nombredecoups + "");
         nbcoul.setText(nombredecouleur + "");
 
@@ -75,9 +79,10 @@ public class Mastergraphique extends javax.swing.JFrame {
         Panelcouleur = new javax.swing.JPanel();
         buttonvalid = new javax.swing.JButton();
         Textecouleur = new javax.swing.JLabel();
+        boutonregle = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setPreferredSize(new java.awt.Dimension(1300, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         GrilleJeugraph.setBackground(new java.awt.Color(0, 0, 0));
@@ -163,6 +168,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         Textecouleur.setText("aucune couleur sélectionnée");
         getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 480, 170, 30));
+        getContentPane().add(boutonregle, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -181,6 +187,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonnecouleur.setVisible(true);
         Textecouleur.setVisible(true);
         buttonvalid.setVisible(true);
+        boutonregle.setVisible(true);
         initialiserPartie(Integer.parseInt(nbessais.getText()));
 
         int nbcoups = Integer.parseInt(nbessais.getText());
@@ -321,7 +328,7 @@ public class Mastergraphique extends javax.swing.JFrame {
             } 
             else {
                 for (int position = 0; position <= 3; position++) {
-                    if (tableauBoutons[touractuel][position].ligne == position){
+                    if (tableauBoutons[touractuel][ligne].ligne == position){
                     }
                     else if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[position])) {
                         nbcouleur = nbcouleur + 1;
@@ -413,6 +420,7 @@ public class Mastergraphique extends javax.swing.JFrame {
     private javax.swing.JPanel GrilleJeugraph;
     private javax.swing.JPanel Panelcouleur;
     private javax.swing.JLabel Textecouleur;
+    private javax.swing.JButton boutonregle;
     private javax.swing.JButton buttonstart;
     private javax.swing.JButton buttonvalid;
     private javax.swing.JLabel jLabel1;
