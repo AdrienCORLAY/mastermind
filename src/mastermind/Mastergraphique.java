@@ -321,7 +321,9 @@ public class Mastergraphique extends javax.swing.JFrame {
             } 
             else {
                 for (int position = 0; position <= 3; position++) {
-                    if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[position])) {
+                    if (tableauBoutons[touractuel][position].ligne == position){
+                    }
+                    else if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[position])) {
                         nbcouleur = nbcouleur + 1;
                         break;
                     }
