@@ -48,7 +48,6 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);
         buttonvalid.setVisible(false);
-        boutonregle.setVisible(false);
         couleurselec.setVisible(false);
         bienplace.setVisible(false);
         biencouleur.setVisible(false);
@@ -95,12 +94,12 @@ public class Mastergraphique extends javax.swing.JFrame {
         GrilleJeugraph.setMinimumSize(new java.awt.Dimension(600, 200));
         GrilleJeugraph.setPreferredSize(new java.awt.Dimension(900, 200));
         GrilleJeugraph.setLayout(new java.awt.GridLayout(4, 12));
-        getContentPane().add(GrilleJeugraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
+        getContentPane().add(GrilleJeugraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         nbbonnecouleur.setBackground(new java.awt.Color(255, 255, 255));
         nbbonnecouleur.setPreferredSize(new java.awt.Dimension(900, 60));
         nbbonnecouleur.setLayout(new java.awt.GridLayout());
-        getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
+        getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
 
         buttonstart.setText("START");
         buttonstart.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +107,7 @@ public class Mastergraphique extends javax.swing.JFrame {
                 buttonstartActionPerformed(evt);
             }
         });
-        getContentPane().add(buttonstart, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
+        getContentPane().add(buttonstart, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
 
         plusess.setText("+");
         plusess.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +115,7 @@ public class Mastergraphique extends javax.swing.JFrame {
                 plusessActionPerformed(evt);
             }
         });
-        getContentPane().add(plusess, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
+        getContentPane().add(plusess, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
 
         pluscoul.setText("+");
         pluscoul.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +123,7 @@ public class Mastergraphique extends javax.swing.JFrame {
                 pluscoulActionPerformed(evt);
             }
         });
-        getContentPane().add(pluscoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, -1, -1));
+        getContentPane().add(pluscoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
 
         moinsess.setText("-");
         moinsess.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +131,7 @@ public class Mastergraphique extends javax.swing.JFrame {
                 moinsessActionPerformed(evt);
             }
         });
-        getContentPane().add(moinsess, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+        getContentPane().add(moinsess, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         moinscoul.setText("-");
         moinscoul.addActionListener(new java.awt.event.ActionListener() {
@@ -140,29 +139,29 @@ public class Mastergraphique extends javax.swing.JFrame {
                 moinscoulActionPerformed(evt);
             }
         });
-        getContentPane().add(moinscoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
+        getContentPane().add(moinscoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
 
         jLabel1.setText("nombre essais");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 25, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
 
         jLabel2.setText("nombre de couleurs");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 75, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
 
         nbessais.setText("nombre");
-        getContentPane().add(nbessais, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 25, -1, -1));
+        getContentPane().add(nbessais, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
 
         nbcoul.setText("nb couleurs");
-        getContentPane().add(nbcoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 75, -1, -1));
+        getContentPane().add(nbcoul, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 80, -1, -1));
 
         nbbonneplace.setBackground(new java.awt.Color(204, 0, 0));
         nbbonneplace.setPreferredSize(new java.awt.Dimension(60, 60));
         nbbonneplace.setRequestFocusEnabled(false);
         nbbonneplace.setLayout(new java.awt.GridLayout());
-        getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+        getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         Panelcouleur.setPreferredSize(new java.awt.Dimension(900, 75));
         Panelcouleur.setLayout(new java.awt.GridLayout());
-        getContentPane().add(Panelcouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, -1, -1));
+        getContentPane().add(Panelcouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, -1, -1));
 
         buttonvalid.setText("Valider");
         buttonvalid.addActionListener(new java.awt.event.ActionListener() {
@@ -170,20 +169,20 @@ public class Mastergraphique extends javax.swing.JFrame {
                 buttonvalidActionPerformed(evt);
             }
         });
-        getContentPane().add(buttonvalid, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, -1, -1));
+        getContentPane().add(buttonvalid, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
         Textecouleur.setText("aucune couleur sélectionnée");
-        getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 480, 170, 30));
-        getContentPane().add(boutonregle, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, -1, -1));
+        getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 550, 170, 30));
+        getContentPane().add(boutonregle, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
 
         couleurselec.setText("Couleur sélectionée:");
-        getContentPane().add(couleurselec, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 480, -1, 30));
+        getContentPane().add(couleurselec, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, -1, 30));
 
         biencouleur.setText("La couleur de ton pion est dans la combinaison finale");
-        getContentPane().add(biencouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, 330, -1));
+        getContentPane().add(biencouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 520, 330, -1));
 
         bienplace.setText("Ton pion est de la bonne couleur et il est bien placé");
-        getContentPane().add(bienplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
+        getContentPane().add(bienplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -202,7 +201,6 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonnecouleur.setVisible(true);
         Textecouleur.setVisible(true);
         buttonvalid.setVisible(true);
-        boutonregle.setVisible(true);
         couleurselec.setVisible(true);
         bienplace.setVisible(true);
         biencouleur.setVisible(true);
@@ -391,6 +389,7 @@ public class Mastergraphique extends javax.swing.JFrame {
             labelgagnantcouleur = new JLabel();
             nbbonneplace.add(labelgagnantplace);
             nbbonnecouleur.add(labelgagnantcouleur);
+            
             labelgagnantplace.setText("Vous avez perdu(vous avez utilisé tout vos coups");
             labelgagnantcouleur.setText("Vous avez perdu(vous avez utilisé tout vos coups");
         }
