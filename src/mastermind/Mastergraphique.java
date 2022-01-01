@@ -39,6 +39,7 @@ public class Mastergraphique extends javax.swing.JFrame {
     JLabel labelgagnantplace;
     JLabel labelgagnantcouleur;
     ImageIcon img_regle = new javax.swing.ImageIcon(getClass().getResource("/images/Regle.png"));
+   
     
 
     public Mastergraphique() {
@@ -243,10 +244,13 @@ public class Mastergraphique extends javax.swing.JFrame {
         
         
         int nombrecoul = Integer.parseInt(nbcoul.getText());
+        
+      
+       
         for (int i = 0; i <= 3; i++) {
             int nbcouleur;
             nbcouleur = rdc.nextInt(nombrecoul);
-            tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];
+            tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];           
             CouleurMastergraph pionfinal = new CouleurMastergraph(nbcouleur);
             Solfinale.add(pionfinal);
             Solfinale.setPreferredSize(new Dimension(50, 200));
@@ -353,6 +357,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
     private void buttonvalidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonvalidActionPerformed
 
+        String [] tableauTest = new String [4];
         int nbcoups = Integer.parseInt(nbessais.getText());
         for (int li = 0; li < 4; li++) {
             for (int co = 0; co <= touractuel; co++) {
@@ -368,19 +373,20 @@ public class Mastergraphique extends javax.swing.JFrame {
         for (int ligne = 0; ligne <= 3; ligne++) {
             if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[ligne])) {
                 nbplace = nbplace + 1;
+                tableauTest [ligne] = "bonne place";
             } 
-            else {
-                for (int position = 0; position <= 3; position++) {
-                    if (tableauBoutons[touractuel][ligne].ligne == position){
-                    }
-                    else if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[position])) {
-                        nbcouleur = nbcouleur + 1;
-                        break;
-                    }
+        }
+            
+        for (int position = 0; position <= 3; position++) {
+            for (int ligne = 0; ligne <= 3; ligne++) {
+                if (tableauBoutons[touractuel][position].couleurAssociee.equals(tabbase[ligne]) && !"bonne place".equals(tableauTest [ligne]) && !"bonne couleur".equals(tableauTest [ligne]) && !tableauBoutons[touractuel][position].couleurAssociee.equals(tabbase[position])) {
+                    nbcouleur = nbcouleur + 1;
+                    tableauTest [ligne] = "bonne couleur";
+                    break;
                 }
             }
-                
         }
+            
         String stringnbp = String.valueOf(nbplace);
         String stringnbc = String.valueOf(nbcouleur);
         for (int place = 0; place < nbcoups; place++){
