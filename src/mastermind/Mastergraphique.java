@@ -4,16 +4,12 @@
  */
 package mastermind;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.PopupMenu;
-import java.awt.event.ActionEvent;
 import java.util.Random;
-import java.util.Scanner;
+
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
@@ -21,32 +17,34 @@ import javax.swing.JLabel;
  * @author adrie
  */
 public class Mastergraphique extends javax.swing.JFrame {
-
-    int valeurcouleur = 0;
-    int nombredecoups = 12;
-    int nombredecouleur = 8;
-    String[] Listepions = new String[96];
-    CouleurMastergraph couleurmaster = new CouleurMastergraph(0);
-    String[] tabbase = new String[4];
-    Scanner scanner = new Scanner(System.in);
-    GrilleMastergraph grillejeu;
-    int touractuel = 0;
-    private Cellulegraphique[][] tableauBoutons;
-    BonnePlace [] tableauplace;
-    BonneCouleur [] tableaucouleur;
-    BonneCouleur bonc;
-    BonnePlace bonp;
-    JLabel labelgagnantplace;
-    JLabel labelgagnantcouleur;
-    ImageIcon img_regle = new javax.swing.ImageIcon(getClass().getResource("/images/Regle.png"));
-   
+/* Dans cette partie nous initialisons les variables qui devront etre accessible dans l'ensemble du code*/
+    int valeurcouleur = 0; // valeurcouleur nous permet d'aller chercher une chaine de caractères dans un tableau
+    int nombredecoups = 12; // nous définissons un nombre de coups de base qui correspond aux 12 essais du master classique
+    // Le but de pouvoir changer cette variable afin de d'augmenter ou diminuer le nombre d'essais 
+    int nombredecouleur = 8; // nous définissons un nombre de couleurs de base qui correspond aux 8 couleurs du master classique
+    // Le but de pouvoir changer cette variable afin de d'augmenter ou diminuer le nombre de couleurs 
+    CouleurMastergraph couleurmaster = new CouleurMastergraph(0); //Nous definissons ici couleurmaster qui nous permettra 
+    //d'accéder à la classe CouleurMastergraph
+    String[] tabbase = new String[4]; // tabbase contient la combinaison que le joueur doit chercher sous forme de chaines de caractères
+    GrilleMastergraph grillejeu; 
+    int touractuel = 0; // on inititialise le tour de jeu à 0
+    private Cellulegraphique[][] tableauBoutons; // nous créons un tableau de cellules
+    BonnePlace [] tableauplace; // ce tableau répertori les résultats obtenue de chaque combinaisons proposees 
+    // Il contient le nombre de pions à la bonne place dans la combinaison
+    BonneCouleur [] tableaucouleur;// ce tableau répertori les résultats obtenue de chaque combinaisons proposees 
+    // Il contient le nombre de pions à la bonne couleur dans la combinaison
+    BonneCouleur bonc; // Cette classe nous permet de creer des label et de les inserer dans le panel prévu pour indiquer le nombre de bonne couleur
+    BonnePlace bonp;// Cette classe nous permet de creer des label et de les inserer dans le panel prévu pour indiquer le nombre de pions a la bonne place
+    JLabel labelgagnantplace; // Nous définissons labelgagnantplace comme étant un label ce qui permet de l'afficher dans notre fenetre de jeu
+    JLabel labelgagnantcouleur;// Nous définissons labelgagnantcouleur comme étant un label ce qui permet de l'afficher dans notre fenetre de jeu
+    ImageIcon img_regle = new javax.swing.ImageIcon(getClass().getResource("/images/Regle.png")); //nous importons l'image contenant les regle du jeu
     
 
     public Mastergraphique() {
-
+/* Au depart plusieur panels ne sont pas affiché car le joueur n'en a pas besoin*/
         initComponents();
         nbbonneplace.setVisible(false);
-        Solfinale.setVisible(true);
+        Solfinale.setVisible(false);
         GrilleJeugraph.setVisible(false);
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);
@@ -54,9 +52,11 @@ public class Mastergraphique extends javax.swing.JFrame {
         couleurselec.setVisible(false);
         bienplace.setVisible(false);
         biencouleur.setVisible(false);
-        boutonregle.setIcon(img_regle);
-        nbessais.setText(nombredecoups + "");
-        nbcoul.setText(nombredecouleur + "");
+        boutonregle.setIcon(img_regle); // nous inserons l'image contenant les regles du jeu dans la zone prevu a cet effet
+        nbessais.setText(nombredecoups + ""); //on initialise le texte contenue nbessais(une zone de texte), nous mettons des guillement afin de 
+        // transformer nombredecoups en chaine de caractère.
+        nbcoul.setText(nombredecouleur + "");//on initialise le texte contenue nbcoul(une zone de texte), nous mettons des guillement afin de 
+        // transformer nombredecouleur en chaine de caractère.
         
 
     }
@@ -104,7 +104,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonnecouleur.setBackground(new java.awt.Color(255, 255, 255));
         nbbonnecouleur.setPreferredSize(new java.awt.Dimension(900, 60));
         nbbonnecouleur.setLayout(new java.awt.GridLayout());
-        getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
+        getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, 30));
 
         buttonstart.setText("START");
         buttonstart.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +162,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonneplace.setPreferredSize(new java.awt.Dimension(60, 60));
         nbbonneplace.setRequestFocusEnabled(false);
         nbbonneplace.setLayout(new java.awt.GridLayout());
-        getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, 30));
 
         Panelcouleur.setPreferredSize(new java.awt.Dimension(900, 75));
         Panelcouleur.setLayout(new java.awt.GridLayout());
@@ -184,10 +184,10 @@ public class Mastergraphique extends javax.swing.JFrame {
         getContentPane().add(couleurselec, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, -1, 30));
 
         biencouleur.setText("La couleur de ton pion est dans la combinaison finale");
-        getContentPane().add(biencouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 520, 330, -1));
+        getContentPane().add(biencouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 490, 330, -1));
 
         bienplace.setText("Ton pion est de la bonne couleur et il est bien placé");
-        getContentPane().add(bienplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, -1));
+        getContentPane().add(bienplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
 
         Solfinale.setBackground(new java.awt.Color(0, 204, 51));
 
@@ -208,14 +208,15 @@ public class Mastergraphique extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void initialiserPartie(int essais) {
-
         grillejeu = new GrilleMastergraph(essais);
-        
-        
+        //Ici nous initialisons seleument une grille de jeu qui contiendra des cellules
+        // Afin de crer une grille de la bonne taille nous donnons en parametre le nombre d'essais que le joueur aura au cours de la partie
     }
-
+// Maintenant que nous initialisé la partie nous commencons la partie en appuyant sur le bouton start
     private void buttonstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonstartActionPerformed
-        Random rdc = new Random();
+
+        Random rdc = new Random();// cette méthode nous permet de faire des tirages alétoire
+        // nous affichons les panel qui étaient jusqu'a maintenat caches car le joueur va en avoir besoin
         nbbonneplace.setVisible(true);
         GrilleJeugraph.setVisible(true);
         nbbonnecouleur.setVisible(true);
@@ -224,15 +225,21 @@ public class Mastergraphique extends javax.swing.JFrame {
         couleurselec.setVisible(true);
         bienplace.setVisible(true);
         biencouleur.setVisible(true);
-        initialiserPartie(Integer.parseInt(nbessais.getText()));
+        
+        int nbcoups = Integer.parseInt(nbessais.getText());//Integer.parseInt permet de transformer une chaine de caractères en entier
+        initialiserPartie(nbcoups);
+        //Ainsi nous initialisons une grille de jeu avec le bon nombre de colonnes
 
-        int nbcoups = Integer.parseInt(nbessais.getText());
-        nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 60));
+        
+        // Afin d'améliorer nore affichage nous dimensionnons la grille de jeu affichee en fonction du nombre d'essais du joueur
+        nbbonnecouleur.setPreferredSize(new Dimension(nbcoups * 50, 30));
         GrilleJeugraph.setPreferredSize(new Dimension(nbcoups * 50, 200));
-        nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 60));
+        nbbonneplace.setPreferredSize(new Dimension(nbcoups * 50, 30));
 
+        // Nous créons de la meme maniere les tableaux contenant les résultats obtenus en fonction du nombre d'essais
         tableaucouleur = new BonneCouleur[nbcoups];
         tableauplace = new BonnePlace[nbcoups];
+        
         for (int place = 0; place < nbcoups; place++){
             bonp = new BonnePlace(place);
             nbbonneplace.add(bonp);
@@ -423,8 +430,10 @@ public class Mastergraphique extends javax.swing.JFrame {
             labelgagnantcouleur.setText("Vous avez perdu(vous avez utilisé tout vos coups");
             Solfinale.setVisible(true);
         }
-        for (int li = 0; li<=3 ; li++){
-            tableauBoutons[touractuel][li].setEnabled(true);
+        else{
+            for (int li = 0; li<=3 ; li++){
+                tableauBoutons[touractuel][li].setEnabled(true);
+            }
         }
     }//GEN-LAST:event_buttonvalidActionPerformed
 
