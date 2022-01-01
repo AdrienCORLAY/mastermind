@@ -240,50 +240,60 @@ public class Mastergraphique extends javax.swing.JFrame {
         tableaucouleur = new BonneCouleur[nbcoups];
         tableauplace = new BonnePlace[nbcoups];
         
+        // cette bouble nous permet d'ajouter des label dans un gridlayout
+        // ces labels contiendrons les resultats obtenus
         for (int place = 0; place < nbcoups; place++){
-            bonp = new BonnePlace(place);
-            nbbonneplace.add(bonp);
-            tableauplace[place] = bonp;
-            bonc = new BonneCouleur(place);
-            nbbonnecouleur.add(bonc);
-            tableaucouleur[place] = bonc;
+            bonp = new BonnePlace(place); // on creer bonp avec la classe BonnePlace et le parametre place
+            nbbonneplace.add(bonp);// on ajoute notre label, bonp, au gridlayout nbbonneplace
+            tableauplace[place] = bonp;//tableauplace contient les résultat obtenus
+            bonc = new BonneCouleur(place);// on creer bonc avec la classe BonneCouleur et le parametre place
+            nbbonnecouleur.add(bonc);// on ajoute notre label, bonc, au gridlayout nbbonnecouleur
+            tableaucouleur[place] = bonc;//tableaucouleur contient les résultat obtenus
         }
         
-        
-        int nombrecoul = Integer.parseInt(nbcoul.getText());
-        
-      
+        int nombrecoul = Integer.parseInt(nbcoul.getText());    
+        // La variable nombrecoul permet de connaitre sous forme d'entier le nombre de couleur avec les quelles le joueur va jouer
        
+        // Cette boucle nous permet de définir la combinaison secrete que le joueur va devoir chercher
         for (int i = 0; i <= 3; i++) {
-            int nbcouleur;
-            nbcouleur = rdc.nextInt(nombrecoul);
-            tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];           
-            CouleurMastergraph pionfinal = new CouleurMastergraph(nbcouleur);
-            Solfinale.add(pionfinal);
-            Solfinale.setPreferredSize(new Dimension(50, 200));
-            Solfinale.setLayout(new GridLayout(4,1));
+            int nbcouleur; //Cette variable va nous permetre de tirer un entier aléatoire 
+            nbcouleur = rdc.nextInt(nombrecoul); // nous tirons aleatoirement une valeure comprise dans le nombre de couleurs en jeu
+            //nous envoyons ensuite la veleur tirée aleatoirement en parametre de couleurmaster
+            tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];//Le tableau contenant la combinaison finale prend la 
+            //resultat retouner par la methode couleurmaster     
+            CouleurMastergraph pionfinal = new CouleurMastergraph(nbcouleur); //nous créons des bouton en appelant cette methode 
+            Solfinale.add(pionfinal);//nous ajoutons ces boutons dans le panel Solfinale
+            Solfinale.setPreferredSize(new Dimension(50, 200)); //nous donnons des dimensions au panel afin qu'il soit adapté a notre utilisation 
+            Solfinale.setLayout(new GridLayout(4,1)); //Cette methode nous permet d'ordonner et de creer notre gridlayout
             Solfinale.repaint();
             
         }
         
-        
+        // cette boucle nous permet d'affciher les couleurs avec les quelles le koueur pourra jouer
         for (int v = 0; v < nombrecoul; v++) {
+            //Carrecouleur de type Colors est un bouton d'une certaine couleur
+            //cette couleur est donnée en parametre de la methode
             Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
+            //A chaque case nous associons un listener 
             Carrecouleur.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    //Lorsque l'on appuie sur un des boutons le texte de la couleur selectionnée prend comme valeur 
+                    //la couleur qui est associée au bouton
                     Textecouleur.setText(Carrecouleur.couleurAssociee);
                 }
             });
-            Panelcouleur.add(Carrecouleur);
+            Panelcouleur.add(Carrecouleur); //on ajoute le bouton dans le panel Panelcouleur
 
         }
        
-        
         Textecouleur.repaint();
+        
         String couleuraffiche = null;
-        //couleuraffiche = Textecouleur.getText();
+        //couleuraffiche et une variable qui servira de parametre par la suite
         
         tableauBoutons = new Cellulegraphique[nbcoups][4];
+        // nous créeons un tableau, tableauBoutons qui contient des objets Cellulegraphique
+        //cela nous permetra de retrouver plus facilement les coordonées du bouton sur lequel nous avons cliqué
         for (int ligne = 0; ligne < 4; ligne++) {
             for (int col = 0; col < nbcoups; col++) {
                 Cellulegraphique cellGraph = new Cellulegraphique(ligne,col, couleuraffiche);
@@ -316,12 +326,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         moinscoul.setEnabled(false);
         plusess.setEnabled(false);
         pluscoul.setEnabled(false);
-  //  }
-
-    //public void afficherGrilleSurConsole(int nb){
-
-        
-        
+  
 
 // TODO add your handling code here:
     }//GEN-LAST:event_buttonstartActionPerformed
@@ -416,9 +421,12 @@ public class Mastergraphique extends javax.swing.JFrame {
             labelgagnantplace.setText("Vous avez gagné");
             labelgagnantcouleur.setText("Vous avez gagné");
             
+            
         }   
+        
         touractuel = touractuel + 1;
-        if (nbcoups == touractuel){
+        
+        if (nbcoups == touractuel && nbplace != 4){
             nbbonnecouleur.removeAll();
             nbbonneplace.removeAll();
             labelgagnantplace = new JLabel();
@@ -430,6 +438,7 @@ public class Mastergraphique extends javax.swing.JFrame {
             labelgagnantcouleur.setText("Vous avez perdu(vous avez utilisé tout vos coups");
             Solfinale.setVisible(true);
         }
+                
         else{
             for (int li = 0; li<=3 ; li++){
                 tableauBoutons[touractuel][li].setEnabled(true);

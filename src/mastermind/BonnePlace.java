@@ -10,11 +10,11 @@ import javax.swing.JLabel;
  *
  * @author adrie
  */
+// le but de cette classe et de créer des label qui contendrons par la suite le nombre de pion a la bonne place pour un essais donné
 public class BonnePlace extends JLabel {
-    int Nombre = 0;
-    int place;
+    int place; 
     
     public BonnePlace(int placeAssociee){
-        place = placeAssociee;
+        place = placeAssociee; // cet entier nous permet de retrouver l'emplacement du label dans le tableau
     }    
 }
