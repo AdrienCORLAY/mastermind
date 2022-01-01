@@ -7,6 +7,7 @@ package mastermind;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.util.Random;
@@ -44,6 +45,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         initComponents();
         nbbonneplace.setVisible(false);
+        Solfinale.setVisible(true);
         GrilleJeugraph.setVisible(false);
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);
@@ -54,6 +56,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         boutonregle.setIcon(img_regle);
         nbessais.setText(nombredecoups + "");
         nbcoul.setText(nombredecouleur + "");
+        
 
     }
 
@@ -85,6 +88,7 @@ public class Mastergraphique extends javax.swing.JFrame {
         couleurselec = new javax.swing.JLabel();
         biencouleur = new javax.swing.JLabel();
         bienplace = new javax.swing.JLabel();
+        Solfinale = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 700));
@@ -173,7 +177,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         Textecouleur.setText("aucune couleur sélectionnée");
         getContentPane().add(Textecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 550, 170, 30));
-        getContentPane().add(boutonregle, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
+        getContentPane().add(boutonregle, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, -1, -1));
 
         couleurselec.setText("Couleur sélectionée:");
         getContentPane().add(couleurselec, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, -1, 30));
@@ -183,6 +187,21 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         bienplace.setText("Ton pion est de la bonne couleur et il est bien placé");
         getContentPane().add(bienplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, -1));
+
+        Solfinale.setBackground(new java.awt.Color(0, 204, 51));
+
+        javax.swing.GroupLayout SolfinaleLayout = new javax.swing.GroupLayout(Solfinale);
+        Solfinale.setLayout(SolfinaleLayout);
+        SolfinaleLayout.setHorizontalGroup(
+            SolfinaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        SolfinaleLayout.setVerticalGroup(
+            SolfinaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(Solfinale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 260, -1, 200));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -228,7 +247,15 @@ public class Mastergraphique extends javax.swing.JFrame {
             int nbcouleur;
             nbcouleur = rdc.nextInt(nombrecoul);
             tabbase[i] = couleurmaster.Tableaucouleur[nbcouleur];
+            CouleurMastergraph pionfinal = new CouleurMastergraph(nbcouleur);
+            Solfinale.add(pionfinal);
+            Solfinale.setPreferredSize(new Dimension(50, 200));
+            Solfinale.setLayout(new GridLayout(4,1));
+            Solfinale.repaint();
+            
         }
+        
+        
         for (int v = 0; v < nombrecoul; v++) {
             Colors Carrecouleur = new Colors(couleurmaster.Tableaucouleur[v]);
             Carrecouleur.addActionListener(new java.awt.event.ActionListener() {
@@ -376,11 +403,7 @@ public class Mastergraphique extends javax.swing.JFrame {
             labelgagnantplace.setText("Vous avez gagné");
             labelgagnantcouleur.setText("Vous avez gagné");
             
-        }
-        
-        
-        
-        
+        }   
         touractuel = touractuel + 1;
         if (nbcoups == touractuel){
             nbbonnecouleur.removeAll();
@@ -389,9 +412,10 @@ public class Mastergraphique extends javax.swing.JFrame {
             labelgagnantcouleur = new JLabel();
             nbbonneplace.add(labelgagnantplace);
             nbbonnecouleur.add(labelgagnantcouleur);
-            
+            Solfinale.setVisible(true);
             labelgagnantplace.setText("Vous avez perdu(vous avez utilisé tout vos coups");
             labelgagnantcouleur.setText("Vous avez perdu(vous avez utilisé tout vos coups");
+            Solfinale.setVisible(true);
         }
         for (int li = 0; li<=3 ; li++){
             tableauBoutons[touractuel][li].setEnabled(true);
@@ -436,6 +460,7 @@ public class Mastergraphique extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GrilleJeugraph;
     private javax.swing.JPanel Panelcouleur;
+    private javax.swing.JPanel Solfinale;
     private javax.swing.JLabel Textecouleur;
     private javax.swing.JLabel biencouleur;
     private javax.swing.JLabel bienplace;
