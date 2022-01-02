@@ -202,7 +202,7 @@ public class Mastergraphique extends javax.swing.JFrame {
             .addGap(0, 200, Short.MAX_VALUE)
         );
 
-        getContentPane().add(Solfinale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 260, -1, 200));
+        getContentPane().add(Solfinale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 260, -1, 200));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -296,23 +296,35 @@ public class Mastergraphique extends javax.swing.JFrame {
         //cela nous permetra de retrouver plus facilement les coordonées du bouton sur lequel nous avons cliqué
         for (int ligne = 0; ligne < 4; ligne++) {
             for (int col = 0; col < nbcoups; col++) {
+                // chaque bouton créé sera identifié par la variable cellGraph et aura en parametre une ligne, une colonne et une couleur
+                //Ainsi nous créons ces bouton de la manière suivante
                 Cellulegraphique cellGraph = new Cellulegraphique(ligne,col, couleuraffiche);
+                //tableauBoutons[col][ligne] nous permetra d'aller chercher plus rapidement les cellules sur les 
+                //quelles nous souhaiterons faire de actions            
                 tableauBoutons[col][ligne] = cellGraph;
+                //Nous ajoutons au bouton un listener ce qui nous permetra d'effectuer des actions lorsque le joueur appuyra sur un de ces boutons
                 cellGraph.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        
+                        // le joueur ne peut jouer que dans la colonne qui est en jeu
+                        // ce test nous permet donc de vérifier si la colonne dans laquelle le joueur souhaite jouer est effectivement en jeu
+                        //sinon le joueur ne peut pas jouer la case sur laquelle il clique
                         if (touractuel == cellGraph.colonne){
+                            //Lorsque les conditions sont remplies la couleur de la case en question change et sont 
+                            //apparence avec grace à la classe Cellulegraphique
                            cellGraph.couleurAssociee = Textecouleur.getText();
                         }
                      
                     }
 
                 });
-
+                //cette commande permet d'ajoutée les boutons dans le panel mais cette ligne n'est pas lue lorsque l'on appuie sur un bouton
+                //si c'était le cas cela désorganiserai notre tableau
                 GrilleJeugraph.add(cellGraph);
                 GrilleJeugraph.repaint();
 
+                //Enfin nous bloquons les cellules dans lesquelles le joueur ne peut pas jouer au début de la partie grace à cette condition
                 if (col != touractuel) {
+                    //Le bouton devient donc inactif
                     tableauBoutons[col][ligne].setEnabled(false);
                 }
 
@@ -320,7 +332,8 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         }
 
-       
+        //Une fois l'initialisation faite nous bloquons les boutons permetant au joueur de commencer la partie, et de choisir le nombre de 
+        //d'essais et de couleur car le joueur n'en a plus besoin
         buttonstart.setEnabled(false);
         moinsess.setEnabled(false);
         moinscoul.setEnabled(false);
@@ -330,16 +343,23 @@ public class Mastergraphique extends javax.swing.JFrame {
 
 // TODO add your handling code here:
     }//GEN-LAST:event_buttonstartActionPerformed
-
+    //Lorsque nous appuyons sur le bouton + le nombre d'essais va augmenter
     private void plusessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusessActionPerformed
-        if (Integer.parseInt(nbessais.getText()) == 17) {
+        //nous bloquons le nombre d'essais à 20 de maniere à ce que la grille ne dépasse pas de la fenetre de jeu
+        //donc lorsque le joueur atteint la valeur 20 le texte ne change plus 
+        //Or ne maniere a déterminer la taille de la grille à créer nous utilisons ce texte 
+        //Ainsi le joueur ne peut pas aller au dela des 20 essais
+        if (Integer.parseInt(nbessais.getText()) == 20) {
             nbessais.setText(Integer.parseInt(nbessais.getText()) + "");
-        } else {
+        } 
+        //en revanche si le joueur n'a pas atteint les 20 essais alors peut encore augmenter le nombre d'essais
+        // la variable qui repertorie ce nombre augmente alors de 1
+        else {
             nbessais.setText(Integer.parseInt(nbessais.getText()) + 1 + "");
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_plusessActionPerformed
-
+    // De la meme maniere que précedement le joueur ne peut pas descendre en dessous des 2 essais 
     private void moinsessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moinsessActionPerformed
         if (Integer.parseInt(nbessais.getText()) == 2) {
             nbessais.setText(Integer.parseInt(nbessais.getText()) + "");
@@ -348,7 +368,8 @@ public class Mastergraphique extends javax.swing.JFrame {
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_moinsessActionPerformed
-
+    // Les deux boutons suivant marche de la meme maniere que ceux pour augmenter et diminuer le nombre d'essais mais cette fois ils 
+    //permettent d'augmenter et de diminuer le nombre de couleur
     private void pluscoulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pluscoulActionPerformed
         if (Integer.parseInt(nbcoul.getText()) == 12) {
             nbcoul.setText(Integer.parseInt(nbcoul.getText()) + "");
@@ -366,31 +387,49 @@ public class Mastergraphique extends javax.swing.JFrame {
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_moinscoulActionPerformed
-
+    // le bouton buttonvalid, valider à l'écran permet de valider la composition que l'on vient de poser
     private void buttonvalidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonvalidActionPerformed
-
+        // le tableau que nous créons ici nous permet de déterminer quel est le statut de chaque pion de la proposition
+        //J'expliquerai plus en détail dans la suite du code
         String [] tableauTest = new String [4];
+        // dans cette partie nous avons besoin du nombre d'essais dont dispose le joueur, ce nombre est repertorié dans la variable nbcoups 
         int nbcoups = Integer.parseInt(nbessais.getText());
+        // le joueur ne peut pas valider une combinaison si l'ensemble des case de la colonne en jeu n'est pas remplie
+        //cette boucle nous permet de vérifier cela et d'annuler la validation du joueur
+        //si une des cases est vide le joueur ne peut pas valider sa combinaison
         for (int li = 0; li < 4; li++) {
             for (int co = 0; co <= touractuel; co++) {
                 if (tableauBoutons[co][li].couleurAssociee == null){
-                    
                     return;
                 }
             }
         }
-       
+        
+        // ces deux variables nous permettent de répertorier le nombre de bonnes places et de bonnes couleur dans la combinaison validée
         int nbplace = 0;
         int nbcouleur = 0;
+        // dans un premier temps nous testons si le pion de la combianison est bien placé et de la bonne couleur par rapport à la combinaison finale
+        // car si le pion est bien placé et de la bonne couleur nous ne compterons pas le fait qu'il soit de la bonne couleur
         for (int ligne = 0; ligne <= 3; ligne++) {
             if (tableauBoutons[touractuel][ligne].couleurAssociee.equals(tabbase[ligne])) {
+                // la variable répertiriant le nombre de pions bien placé augmente alors de 1 si la condition est remplie
+                //Et la case correspondant dans notre tableautest prend comme valeur bonne place
+                // cela nous permetra d'identifier si la case a déja étée testée de manière 
+                //à ne pas lui appliquer d'autre tests qui fausserai le comptage
                 nbplace = nbplace + 1;
                 tableauTest [ligne] = "bonne place";
             } 
         }
-            
+        
+        //nous comptons ensuite grace à cette boucle le nombre de pions ayant seulement une couleur en commun avec ceux de la composition finale
         for (int position = 0; position <= 3; position++) {
             for (int ligne = 0; ligne <= 3; ligne++) {
+                //la variable repertoriant le nombre de bonnes couleur, nbcouleur, augmente de 1 si et seulement si
+                //sa couleur correspond à de celle de la composition finale
+                //si le pion n'a pas été deja compté comme étant à la bonne place
+                //si le pion n'a pas été deja compté comme étant à la bonne couleur
+                //et enfin si le pion n'est pas de la bonne place et à la bonne couleur car dans ce cas la 
+                //il aurait été compté comme étant à la bonne place
                 if (tableauBoutons[touractuel][position].couleurAssociee.equals(tabbase[ligne]) && !"bonne place".equals(tableauTest [ligne]) && !"bonne couleur".equals(tableauTest [ligne]) && !tableauBoutons[touractuel][position].couleurAssociee.equals(tabbase[position])) {
                     nbcouleur = nbcouleur + 1;
                     tableauTest [ligne] = "bonne couleur";
@@ -398,47 +437,68 @@ public class Mastergraphique extends javax.swing.JFrame {
                 }
             }
         }
-            
+        
+        //a la fin des test nous récuperons la valeur des variables nbplace et nbcouleur et transformons en chaine de caractères
         String stringnbp = String.valueOf(nbplace);
         String stringnbc = String.valueOf(nbcouleur);
+        
+        // nous affichons avec cette boucle le résultat obtenu
         for (int place = 0; place < nbcoups; place++){
+            //Nous cherchons donc la case du tableau répertoriant le résultat obtenu à l'essais en question
+            // et nous affichons le score obtenu pour le nombre de pions à la bonne place
             if (tableauplace[place].place == touractuel){
                 tableauplace[place].setText("        " + stringnbp);
             }
-            
+            // de la maniere que précedement nous affichons le score obtenu pour le nombre de pions à la bonne couleur
             if (tableaucouleur[place].place == touractuel){
                 tableaucouleur[place].setText("        " + stringnbc);
             }
         }
         
+        // Il y a deux conditions pour que la partie prenne fin
+        //Si le joueur à trouvé la conbianison 
+        //Si le joueur n'a plus d'essais
+        // nous testons dans un premier temps si le joueur a trouvé la combinaison finale
         if (nbplace == 4){
+            //Dans ce cas là nous enlevons toutes les case des tableaus des score et affichons ce message "Vous avez gagné"
             nbbonnecouleur.removeAll();
             nbbonneplace.removeAll();
+            //nous créons ainsi des labels
             labelgagnantplace = new JLabel();
             labelgagnantcouleur = new JLabel();
+            //que nous ajoutons dans les panels des scores
             nbbonneplace.add(labelgagnantplace);
             nbbonnecouleur.add(labelgagnantcouleur);
+            //et leurs donnont la valeur "Vous avez gagné"
             labelgagnantplace.setText("Vous avez gagné");
             labelgagnantcouleur.setText("Vous avez gagné");
             
             
         }   
-        
+        // dans le cas ou le joueur n'a pas encore gagné le tour de jeu répertorié par la variable touractuel augmente de 1
         touractuel = touractuel + 1;
         
+        // ainsi si le joueur n'a plus d'essais et qu'il n'a pas trouvé la combinaison nous affichons 
+        //un message de défaite à la place de celui de victoire
         if (nbcoups == touractuel && nbplace != 4){
+            //Dans ce cas là nous enlevons toutes les case des tableaus des score et affichons ce message "Vous avez perdu(vous avez utilisé tout vos coups"
             nbbonnecouleur.removeAll();
             nbbonneplace.removeAll();
+            //nous créons ainsi des labels
             labelgagnantplace = new JLabel();
             labelgagnantcouleur = new JLabel();
+            //que nous ajoutons dans les panels des scores
             nbbonneplace.add(labelgagnantplace);
             nbbonnecouleur.add(labelgagnantcouleur);
+            //nous affichons la combinaison que le joueur devait trouver 
             Solfinale.setVisible(true);
+            //et leurs donnont la valeur "Vous avez perdu(vous avez utilisé tout vos coups"
             labelgagnantplace.setText("Vous avez perdu(vous avez utilisé tout vos coups");
             labelgagnantcouleur.setText("Vous avez perdu(vous avez utilisé tout vos coups");
-            Solfinale.setVisible(true);
+            
         }
-                
+        //Si c'est deux conditions ne sont pas vraie alors c'est qu'il reste des essais au joueur et qu'il n'a pas trouvé la solution
+        //Les cases suivantes deviennent donc jouables  grace à la boucle suivante
         else{
             for (int li = 0; li<=3 ; li++){
                 tableauBoutons[touractuel][li].setEnabled(true);
