@@ -43,7 +43,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 /* Au depart plusieur panels ne sont pas affiché car le joueur n'en a pas besoin*/
         initComponents();
         nbbonneplace.setVisible(false);
-        Solfinale.setVisible(true);
+        Solfinale.setVisible(false);
         GrilleJeugraph.setVisible(false);
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);
