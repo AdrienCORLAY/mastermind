@@ -24,43 +24,4 @@ public class GrilleMastergraph {
     }
     
    
-    //cette méthode nous permet dans la version console sous forme de lettre
-    public void afficherGrilleSurConsole(){
-        for( int i=0; i<=11; i++){
-            System.out.print("\n"+i+ " :");
-            for( int j=0; j<=3; j++){
-                if (lireCouleurDuPion(i,j)== "rouge"){
-                        System.out.print("R ");
-                }
-                if (lireCouleurDuPion(i,j)== "orange"){
-                        System.out.print("O ");
-                }
-                if (lireCouleurDuPion(i,j)== "bleu"){
-                        System.out.print("B ");
-                }
-                if (lireCouleurDuPion(i,j)== "blanc"){
-                        System.out.print("Blc ");
-                }
-                if (lireCouleurDuPion(i,j)== "rose"){
-                        System.out.print("Re ");
-                }
-                if (lireCouleurDuPion(i,j)== "vert"){
-                        System.out.print("V ");
-                }
-                if (lireCouleurDuPion(i,j)== "violet"){
-                        System.out.print("Vi ");
-                }
-                if (lireCouleurDuPion(i,j)== "jaune"){
-                        System.out.print("J ");
-                }
-                if (lireCouleurDuPion(i,j)== "vide"){
-                        System.out.print("- ");
-                }
-            }
-        }
-    }
-    //grace à cette méthode nous allons chercher la couleur du pion dans la classe CelluleMastergraph
-    public String lireCouleurDuPion(int LigneDonnee ,int ColonneDonnee){
-        return grilleJeu[LigneDonnee][ColonneDonnee].lireCouleurPion();
-    }
 }
