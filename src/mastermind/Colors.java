@@ -12,15 +12,18 @@ import javax.swing.JButton;
  *
  * @author adrie
  */
+// dans cette classe nous créons le tableau de bouton où le joueur choisi la couleur qu'il veut jouer
 public class Colors extends JButton {
 
     String couleurAssociee;
-
+    
+    //cette methode permet d'associer une couleur au bouton créé
+    //cette couleur associée sera répertoriée par la variable couleurAssociee
     public Colors(String couleur) {
         couleurAssociee = couleur;
     }
 
-    
+    // en fonction de la valeur de la couleur associee le bouton sera d'une couleur différente
     @Override
     public void paintComponent(Graphics G) {
         super.paintComponent(G);

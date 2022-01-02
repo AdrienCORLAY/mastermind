@@ -8,11 +8,12 @@ package mastermind;
  *
  * @author adrie
  */
+//dans cette classe nous créons une grille de jeu qui contiendra des cellules
 public class GrilleMastergraph {
     CouleurMastergraph couleurmaster;
     
     CelluleMastergraph [][] grilleJeu;
-    
+    //Nous ajoutons dans chaque case de notre grille une cellule 
     public GrilleMastergraph(int NB){ 
         grilleJeu = new CelluleMastergraph [NB][4];
         for (int i=0;i<=3;i++){
@@ -22,13 +23,8 @@ public class GrilleMastergraph {
         } 
     }
     
-    public boolean ajouterJeton(int Lignejoue,int Colonnejoue){
-        if ("vide".equals(grilleJeu[Lignejoue][Colonnejoue].lireCouleurPion())){
-            return true ;
-        }
-        return false ;
-    }
-    
+   
+    //cette méthode nous permet dans la version console sous forme de lettre
     public void afficherGrilleSurConsole(){
         for( int i=0; i<=11; i++){
             System.out.print("\n"+i+ " :");
@@ -63,6 +59,7 @@ public class GrilleMastergraph {
             }
         }
     }
+    //grace à cette méthode nous allons chercher la couleur du pion dans la classe CelluleMastergraph
     public String lireCouleurDuPion(int LigneDonnee ,int ColonneDonnee){
         return grilleJeu[LigneDonnee][ColonneDonnee].lireCouleurPion();
     }

@@ -8,7 +8,6 @@ package mastermind;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Random;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -44,7 +43,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 /* Au depart plusieur panels ne sont pas affiché car le joueur n'en a pas besoin*/
         initComponents();
         nbbonneplace.setVisible(false);
-        Solfinale.setVisible(false);
+        Solfinale.setVisible(true);
         GrilleJeugraph.setVisible(false);
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);

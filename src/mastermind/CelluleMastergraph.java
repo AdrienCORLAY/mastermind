@@ -8,14 +8,16 @@ package mastermind;
  *
  * @author adrie
  */
+// dans cette classe nous créons les cellules de la grille de jeu
 public class CelluleMastergraph {
-    String pionCourant;
     
+    String pionCourant;
+    //la valeur de base de chaque cellule est une chaine de caractère contenant "vide"
     public CelluleMastergraph(){
         pionCourant = "vide" ;           
     }
     
-    
+    //lorsque cette methode est appelée on retourne la couleur du pionCourant
     public String lireCouleurPion(){
         return pionCourant;
     }
