@@ -42,8 +42,8 @@ public class Mastergraphique extends javax.swing.JFrame {
     public Mastergraphique() {
 /* Au depart plusieur panels ne sont pas affiché car le joueur n'en a pas besoin*/
         initComponents();
-        nbbonneplace.setVisible(false);
         Solfinale.setVisible(false);
+        nbbonneplace.setVisible(false);
         GrilleJeugraph.setVisible(false);
         nbbonnecouleur.setVisible(false);
         Textecouleur.setVisible(false);
@@ -102,7 +102,7 @@ public class Mastergraphique extends javax.swing.JFrame {
 
         nbbonnecouleur.setBackground(new java.awt.Color(255, 255, 255));
         nbbonnecouleur.setPreferredSize(new java.awt.Dimension(900, 60));
-        nbbonnecouleur.setLayout(new java.awt.GridLayout());
+        nbbonnecouleur.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(nbbonnecouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, 30));
 
         buttonstart.setText("START");
@@ -160,11 +160,11 @@ public class Mastergraphique extends javax.swing.JFrame {
         nbbonneplace.setBackground(new java.awt.Color(204, 0, 0));
         nbbonneplace.setPreferredSize(new java.awt.Dimension(60, 60));
         nbbonneplace.setRequestFocusEnabled(false);
-        nbbonneplace.setLayout(new java.awt.GridLayout());
+        nbbonneplace.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(nbbonneplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, 30));
 
         Panelcouleur.setPreferredSize(new java.awt.Dimension(900, 75));
-        Panelcouleur.setLayout(new java.awt.GridLayout());
+        Panelcouleur.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(Panelcouleur, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, -1, -1));
 
         buttonvalid.setText("Valider");
@@ -213,7 +213,14 @@ public class Mastergraphique extends javax.swing.JFrame {
     }
 // Maintenant que nous initialisé la partie nous commencons la partie en appuyant sur le bouton start
     private void buttonstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonstartActionPerformed
-
+        Panelcouleur.removeAll();
+        Solfinale.setVisible(false);
+        Solfinale.removeAll();
+        nbbonnecouleur.removeAll();
+        nbbonneplace.removeAll();
+        touractuel =0;
+        GrilleJeugraph.removeAll();
+        buttonstart.setText("Start");
         Random rdc = new Random();// cette méthode nous permet de faire des tirages alétoire
         // nous affichons les panel qui étaient jusqu'a maintenat caches car le joueur va en avoir besoin
         nbbonneplace.setVisible(true);
@@ -297,7 +304,7 @@ public class Mastergraphique extends javax.swing.JFrame {
             for (int col = 0; col < nbcoups; col++) {
                 // chaque bouton créé sera identifié par la variable cellGraph et aura en parametre une ligne, une colonne et une couleur
                 //Ainsi nous créons ces bouton de la manière suivante
-                Cellulegraphique cellGraph = new Cellulegraphique(ligne,col, couleuraffiche);
+                Cellulegraphique cellGraph = new Cellulegraphique(ligne , col, couleuraffiche);
                 //tableauBoutons[col][ligne] nous permetra d'aller chercher plus rapidement les cellules sur les 
                 //quelles nous souhaiterons faire de actions            
                 tableauBoutons[col][ligne] = cellGraph;
@@ -322,6 +329,11 @@ public class Mastergraphique extends javax.swing.JFrame {
                 GrilleJeugraph.repaint();
 
                 //Enfin nous bloquons les cellules dans lesquelles le joueur ne peut pas jouer au début de la partie grace à cette condition
+                if (col == 0) {
+                    //Le bouton devient donc inactif
+                    cellGraph.setEnabled(true);
+                }
+                
                 if (col != touractuel) {
                     //Le bouton devient donc inactif
                     tableauBoutons[col][ligne].setEnabled(false);
@@ -471,6 +483,9 @@ public class Mastergraphique extends javax.swing.JFrame {
             //et leurs donnont la valeur "Vous avez gagné"
             labelgagnantplace.setText("Vous avez gagné");
             labelgagnantcouleur.setText("Vous avez gagné");
+            buttonstart.setText("Rejouer");
+            buttonstart.setEnabled(true);
+            
             
             
         }   
@@ -494,6 +509,8 @@ public class Mastergraphique extends javax.swing.JFrame {
             //et leurs donnont la valeur "Vous avez perdu(vous avez utilisé tout vos coups"
             labelgagnantplace.setText("Vous avez perdu(vous avez utilisé tout vos coups");
             labelgagnantcouleur.setText("Vous avez perdu(vous avez utilisé tout vos coups");
+            buttonstart.setText("Rejouer");
+            buttonstart.setEnabled(true);
             
         }
         //Si c'est deux conditions ne sont pas vraie alors c'est qu'il reste des essais au joueur et qu'il n'a pas trouvé la solution
